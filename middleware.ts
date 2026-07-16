@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-const ROOT_DOMAIN = "ineed.my.id";
-const APP_DOMAIN = "app.ineed.my.id";
+const ROOT_DOMAIN = "ineed.web.id";
+const APP_DOMAIN = "app.ineed.web.id";
 
 function getHostname(request: NextRequest): string {
   const host =
