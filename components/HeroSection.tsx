@@ -35,7 +35,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, type: "spring" }}
             className="text-5xl sm:text-6xl lg:text-7xl font-manga tracking-wide text-foreground leading-[1.1]"
-            style={{ textShadow: "4px 4px 0 #1A1A2E" }}
+            style={{ textShadow: "4px 4px 0 var(--color-secondary)" }}
           >
             <span className="text-primary">{t.hero.title1}</span>
             <br />

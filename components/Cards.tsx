@@ -69,7 +69,7 @@ export function ServiceGridCard({ service }: { service: Service }) {
                 <p className="text-[10px] text-foreground/40">Seller</p>
               </div>
             </div>
-            <span className="text-xl font-manga text-foreground tracking-wide" style={{ textShadow: "1px 1px 0 #E63946" }}>
+            <span className="text-xl font-manga text-foreground tracking-wide" style={{ textShadow: "1px 1px 0 var(--color-primary)" }}>
               {service.currency}{service.price}
             </span>
           </div>
@@ -136,7 +136,7 @@ export function JobGridCard({ job }: { job: Job }) {
                 {job.postedBy}
               </span>
             </div>
-            <span className="text-xl font-manga text-foreground tracking-wide" style={{ textShadow: "1px 1px 0 #E63946" }}>
+            <span className="text-xl font-manga text-foreground tracking-wide" style={{ textShadow: "1px 1px 0 var(--color-primary)" }}>
               {job.currency}{job.budget.toLocaleString()}
             </span>
           </div>
