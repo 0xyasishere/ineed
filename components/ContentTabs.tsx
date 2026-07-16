@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ServiceGridCard, JobGridCard } from "@/components/Cards";
 import type { Service, Job } from "@/types/service";
-import { Sparkles, Briefcase, Globe } from "lucide-react";
+import { SparkleIcon, BriefcaseIcon, RemoteIcon } from "@/components/icons";
 import { useI18n } from "@/lib/i18n";
 
 const services: Service[] = [
@@ -34,9 +34,9 @@ const remoteJobs: Job[] = [
 ];
 
 const tabs = [
-  { id: "services" as const, labelKey: "services", icon: Sparkles, sfx: "✨" },
-  { id: "jobs" as const, labelKey: "jobs", icon: Briefcase, sfx: "💼" },
-  { id: "remote" as const, labelKey: "remote", icon: Globe, sfx: "🌀" },
+  { id: "services" as const, labelKey: "services", icon: SparkleIcon, sfx: "✨" },
+  { id: "jobs" as const, labelKey: "jobs", icon: BriefcaseIcon, sfx: "💼" },
+  { id: "remote" as const, labelKey: "remote", icon: RemoteIcon, sfx: "🌀" },
 ];
 
 export function ContentTabs() {

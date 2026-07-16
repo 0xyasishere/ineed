@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
-import { Globe, Bell, Shield, Palette } from "lucide-react";
+import { GlobeIcon, BellIcon, ShieldIcon } from "@/components/icons";
 import { motion } from "framer-motion";
 
 export default function SettingsPage() {
@@ -18,7 +18,6 @@ export default function SettingsPage() {
         <p className="mt-1 text-sm text-foreground/50">{t.dashboard.settingsDesc}</p>
       </motion.div>
 
-      {/* Language */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -28,7 +27,7 @@ export default function SettingsPage() {
       >
         <div className="flex items-center gap-3 mb-4">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-            <Globe size={20} className="text-primary" />
+            <GlobeIcon size={20} className="text-primary" />
           </div>
           <div>
             <h3 className="text-sm font-bold text-foreground">🌐 {t.dashboard.language}</h3>
@@ -55,7 +54,6 @@ export default function SettingsPage() {
         </div>
       </motion.div>
 
-      {/* Notifications */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +63,7 @@ export default function SettingsPage() {
       >
         <div className="flex items-center gap-3 mb-4">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
-            <Bell size={20} className="text-amber-600" />
+            <BellIcon size={20} className="text-amber-600" />
           </div>
           <div>
             <h3 className="text-sm font-bold text-foreground">🔔 {t.dashboard.notifications}</h3>
@@ -84,7 +82,6 @@ export default function SettingsPage() {
         </div>
       </motion.div>
 
-      {/* Security */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -94,7 +91,7 @@ export default function SettingsPage() {
       >
         <div className="flex items-center gap-3 mb-4">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
-            <Shield size={20} className="text-emerald-600" />
+            <ShieldIcon size={20} className="text-emerald-600" />
           </div>
           <div>
             <h3 className="text-sm font-bold text-foreground">🔒 Security</h3>

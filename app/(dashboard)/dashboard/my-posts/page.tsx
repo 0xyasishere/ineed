@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
-import { Plus, Search, Filter } from "lucide-react";
+import { PlusIcon, SearchIcon, FilterIcon } from "@/components/icons";
 import { motion } from "framer-motion";
 
 const posts = [
@@ -28,7 +28,7 @@ export default function MyPostsPage() {
           <p className="mt-1 text-sm text-foreground/50">{t.dashboard.myPostsDesc}</p>
         </div>
         <button className="inline-flex items-center gap-2 manga-outline-sm bg-primary px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg cursor-pointer self-start">
-          <Plus size={16} />
+          <PlusIcon size={16} />
           {t.dashboard.postINeed}
         </button>
       </motion.div>
@@ -40,7 +40,7 @@ export default function MyPostsPage() {
         className="flex items-center gap-3"
       >
         <div className="flex-1 flex items-center gap-2 manga-outline bg-white px-4 py-2.5">
-          <Search size={16} className="text-foreground/40" />
+          <SearchIcon size={16} className="text-foreground/40" />
           <input
             type="text"
             placeholder={t.dashboard.searchPlaceholder}
@@ -48,7 +48,7 @@ export default function MyPostsPage() {
           />
         </div>
         <button className="inline-flex items-center gap-2 manga-outline bg-white px-4 py-2.5 text-sm font-semibold text-foreground/60 transition-colors hover:bg-muted cursor-pointer">
-          <Filter size={14} />
+          <FilterIcon size={14} />
           Filter
         </button>
       </motion.div>

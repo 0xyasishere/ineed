@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useI18n } from "@/lib/i18n";
 import { createClient } from "@supabase/supabase-js";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { EyeIcon, EyeOffIcon } from "@/components/icons";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -23,14 +23,14 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (!error) window.location.href = "https://app.ineed.my.id/dashboard";
+    if (!error) window.location.href = "https://app.ineed.web.id/dashboard";
     setLoading(false);
   };
 
   const handleOAuth = async (provider: "google" | "github") => {
     await supabase.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: "https://app.ineed.my.id/auth/callback" },
+      options: { redirectTo: "https://app.ineed.web.id/auth/callback" },
     });
   };
 
@@ -74,7 +74,7 @@ export default function LoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/30 hover:text-foreground/60 cursor-pointer"
               >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                {showPassword ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
               </button>
             </div>
             <div className="mt-2 text-right">

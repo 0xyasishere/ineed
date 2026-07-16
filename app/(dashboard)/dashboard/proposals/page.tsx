@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
-import { Search, Filter } from "lucide-react";
+import { SearchIcon, FilterIcon } from "@/components/icons";
 import { motion } from "framer-motion";
 
 const proposals = [
@@ -32,11 +32,11 @@ export default function ProposalsPage() {
         className="flex items-center gap-3"
       >
         <div className="flex-1 flex items-center gap-2 manga-outline bg-white px-4 py-2.5">
-          <Search size={16} className="text-foreground/40" />
+          <SearchIcon size={16} className="text-foreground/40" />
           <input type="text" placeholder={t.dashboard.searchPlaceholder} className="flex-1 bg-transparent text-sm text-foreground placeholder-foreground/40 outline-none" />
         </div>
         <button className="inline-flex items-center gap-2 manga-outline bg-white px-4 py-2.5 text-sm font-semibold text-foreground/60 transition-colors hover:bg-muted cursor-pointer">
-          <Filter size={14} />
+          <FilterIcon size={14} />
           Filter
         </button>
       </motion.div>

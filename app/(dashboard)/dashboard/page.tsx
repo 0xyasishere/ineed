@@ -3,19 +3,18 @@
 import { motion } from "framer-motion";
 import { useI18n } from "@/lib/i18n";
 import {
-  LayoutDashboard,
-  FileText,
-  Send,
-  Wallet,
-  CheckCircle2,
-  Plus,
-} from "lucide-react";
+  FileTextIcon,
+  SendIcon,
+  WalletIcon,
+  CheckCircleIcon,
+  PlusIcon,
+} from "@/components/icons";
 
 const stats = [
-  { key: "activeListings", value: "12", icon: FileText, color: "text-primary", bg: "bg-primary/10" },
-  { key: "pendingProposals", value: "5", icon: Send, color: "text-accent", bg: "bg-accent/10" },
-  { key: "totalEarnings", value: "$4,280", icon: Wallet, color: "text-gold", bg: "bg-gold/10" },
-  { key: "completedJobs", value: "28", icon: CheckCircle2, color: "text-secondary", bg: "bg-secondary/10" },
+  { key: "activeListings", value: "12", icon: FileTextIcon, color: "text-primary", bg: "bg-primary/10" },
+  { key: "pendingProposals", value: "5", icon: SendIcon, color: "text-accent", bg: "bg-accent/10" },
+  { key: "totalEarnings", value: "$4,280", icon: WalletIcon, color: "text-gold", bg: "bg-gold/10" },
+  { key: "completedJobs", value: "28", icon: CheckCircleIcon, color: "text-secondary", bg: "bg-secondary/10" },
 ];
 
 const recentListings = [
@@ -30,7 +29,6 @@ export default function DashboardOverview() {
 
   return (
     <div className="space-y-6">
-      {/* Welcome header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -44,15 +42,14 @@ export default function DashboardOverview() {
           <motion.button
             whileHover={{ scale: 1.05, x: 4 }}
             whileTap={{ scale: 0.95 }}
-            className="mt-4 manga-outline-sm bg-white text-primary px-6 py-2.5 text-sm font-bold cursor-pointer"
+            className="mt-4 manga-outline-sm bg-white text-primary px-6 py-2.5 text-sm font-bold cursor-pointer flex items-center gap-1.5"
           >
-            <Plus size={14} className="inline mr-1" />
+            <PlusIcon size={14} />
             {t.dashboard.postINeed}
           </motion.button>
         </div>
       </motion.div>
 
-      {/* Stats grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {stats.map((stat, i) => {
           const Icon = stat.icon;
@@ -74,7 +71,6 @@ export default function DashboardOverview() {
         })}
       </div>
 
-      {/* Recent listings */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

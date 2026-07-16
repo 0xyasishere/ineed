@@ -38,16 +38,16 @@ export function SpeechBubble({
   );
 }
 
-export function SpeedLines({ className = "" }: { className?: string }) {
+export function SpeedLines({ className = "", count = 20 }: { className?: string; count?: number }) {
   return (
     <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>
-      {Array.from({ length: 20 }).map((_, i) => (
+      {Array.from({ length: count }).map((_, i) => (
         <div
           key={i}
           className="absolute h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"
           style={{
             width: `${60 + Math.random() * 40}%`,
-            top: `${5 + (i * 5)}%`,
+            top: `${5 + (i * (100 / count))}%`,
             left: `${Math.random() * 20}%`,
             transform: `rotate(${-2 + Math.random() * 4}deg)`,
             opacity: 0.15 + Math.random() * 0.15,
@@ -83,6 +83,66 @@ export function FloatingEmoji({
     >
       {emoji}
     </motion.span>
+  );
+}
+
+export function SFXText({
+  text,
+  className = "",
+  color = "text-primary",
+}: {
+  text: string;
+  className?: string;
+  color?: string;
+}) {
+  return (
+    <motion.span
+      className={`sfx-text absolute pointer-events-none select-none font-manga text-4xl sm:text-5xl opacity-20 ${color} ${className}`}
+      animate={{ rotate: [-8, -4, -8], scale: [1, 1.05, 1] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+    >
+      {text}
+    </motion.span>
+  );
+}
+
+export function Starburst({
+  className = "",
+  size = 120,
+}: {
+  className?: string;
+  size?: number;
+}) {
+  return (
+    <div
+      className={`absolute pointer-events-none ${className}`}
+      style={{ width: size, height: size }}
+    >
+      <svg viewBox="0 0 120 120" className="w-full h-full opacity-10">
+        {Array.from({ length: 12 }).map((_, i) => {
+          const angle = (i * 30 * Math.PI) / 180;
+          const x1 = 60 + Math.cos(angle) * 10;
+          const y1 = 60 + Math.sin(angle) * 10;
+          const x2 = 60 + Math.cos(angle) * 55;
+          const y2 = 60 + Math.sin(angle) * 55;
+          return (
+            <line
+              key={i}
+              x1={x1} y1={y1} x2={x2} y2={y2}
+              stroke="currentColor"
+              strokeWidth={i % 3 === 0 ? 3 : 1.5}
+              className="text-primary"
+            />
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
+export function HalftoneOverlay({ className = "" }: { className?: string }) {
+  return (
+    <div className={`absolute inset-0 pointer-events-none halftone ${className}`} />
   );
 }
 

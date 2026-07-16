@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
-import { Camera } from "lucide-react";
+import { CameraIcon } from "@/components/icons";
 import { motion } from "framer-motion";
 
 export default function ProfilePage() {
@@ -31,7 +31,7 @@ export default function ProfilePage() {
               JD
             </div>
             <button className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-white cursor-pointer">
-              <Camera size={12} />
+              <CameraIcon size={12} />
             </button>
           </div>
           <div>

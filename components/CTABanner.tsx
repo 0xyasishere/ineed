@@ -2,70 +2,95 @@
 
 import { motion } from "framer-motion";
 import { useI18n } from "@/lib/i18n";
+import { SpeedLines, HalftoneOverlay } from "@/components/manga/Elements";
+import { ArrowRightIcon } from "@/components/icons";
 
 export function CTABanner() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
 
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", stiffness: 200 }}
-        className="relative overflow-hidden manga-panel bg-foreground p-10 sm:p-14 text-center"
-      >
-        {/* Speed lines */}
-        <div className="absolute inset-0 pointer-events-none">
-          {Array.from({ length: 15 }).map((_, i) => (
-            <div
-              key={i}
-              className="absolute h-px bg-white/5"
-              style={{
-                width: `${40 + Math.random() * 60}%`,
-                top: `${5 + i * 7}%`,
-                left: `${Math.random() * 30}%`,
-                transform: `rotate(${-2 + Math.random() * 4}deg)`,
-              }}
-            />
-          ))}
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative overflow-hidden manga-panel bg-primary p-10 sm:p-14">
+        <SpeedLines count={20} className="!opacity-40" />
+        <HalftoneOverlay className="!opacity-[0.12] text-white" />
+
+        <span className="absolute top-3 right-6 font-manga text-white/[0.12] text-7xl sm:text-8xl select-none pointer-events-none tracking-wider">GO!</span>
+        <span className="absolute bottom-3 left-6 font-manga text-white/[0.08] text-5xl select-none pointer-events-none">NOW!</span>
+
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none opacity-10">
+          <svg viewBox="0 0 400 400" className="w-full h-full text-white">
+            {Array.from({ length: 24 }).map((_, i) => {
+              const angle = (i * 15 * Math.PI) / 180;
+              return (
+                <line
+                  key={i}
+                  x1={200 + Math.cos(angle) * 30}
+                  y1={200 + Math.sin(angle) * 30}
+                  x2={200 + Math.cos(angle) * 190}
+                  y2={200 + Math.sin(angle) * 190}
+                  stroke="currentColor"
+                  strokeWidth={i % 4 === 0 ? 3 : 1}
+                />
+              );
+            })}
+          </svg>
         </div>
 
-        <div className="relative z-10">
+        <div className="relative z-10 text-center">
           <motion.span
-            animate={{ rotate: [0, -5, 5, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="inline-block text-5xl mb-4"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-block font-manga text-sm tracking-widest text-white/80 mb-3"
           >
-            ⚡
+            ★ {locale === "id" ? "MULAI SEKARANG" : "GET STARTED"}
           </motion.span>
-
-          <h2 className="text-3xl sm:text-4xl font-manga tracking-wide text-white" style={{ textShadow: "3px 3px 0 rgba(0,0,0,0.3)" }}>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-manga text-3xl sm:text-4xl tracking-wide text-white"
+            style={{ textShadow: "3px 3px 0 rgba(0,0,0,0.2)" }}
+          >
             {t.cta.title}
-          </h2>
-          <p className="mt-4 text-white/60 text-sm max-w-md mx-auto font-medium">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="mt-3 text-sm sm:text-base text-white/80 max-w-md mx-auto font-medium"
+          >
             {t.cta.subtitle}
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3"
+          >
             <motion.a
-              href="#"
+              href="/auth/login"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="manga-outline-sm bg-primary px-8 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:shadow-[4px_4px_0_rgba(255,255,255,0.2)] cursor-pointer"
+              className="inline-flex items-center gap-2 manga-outline-sm bg-white px-7 py-3.5 text-sm font-bold text-primary transition-all duration-200 hover:bg-white/90 cursor-pointer"
             >
-              {t.cta.findFreelancer} ⚡
+              {t.cta.findFreelancer}
+              <ArrowRightIcon size={16} />
             </motion.a>
             <motion.a
-              href="#"
+              href="/auth/login"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="manga-outline-sm bg-white/10 px-8 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:bg-white/20 cursor-pointer"
+              className="inline-flex items-center gap-2 manga-outline-sm bg-white/10 px-7 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 cursor-pointer"
             >
-              {t.cta.startSelling} 🚀
+              {t.cta.startSelling}
             </motion.a>
-          </div>
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

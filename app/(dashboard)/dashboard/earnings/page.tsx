@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
-import { Wallet, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { WalletIcon, ArrowUpRightIcon, ArrowDownRightIcon } from "@/components/icons";
 import { motion } from "framer-motion";
 
 const transactions = [
@@ -34,7 +34,7 @@ export default function EarningsPage() {
           className="manga-panel bg-white p-5"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
-            <Wallet size={20} className="text-emerald-600" />
+            <WalletIcon size={20} className="text-emerald-600" />
           </div>
           <p className="mt-4 text-2xl font-extrabold text-foreground">$4,280</p>
           <p className="mt-1 text-xs font-semibold text-foreground/50">{t.dashboard.totalEarnings}</p>
@@ -47,7 +47,7 @@ export default function EarningsPage() {
           className="manga-panel bg-white p-5"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-            <ArrowUpRight size={20} className="text-primary" />
+            <ArrowUpRightIcon size={20} className="text-primary" />
           </div>
           <p className="mt-4 text-2xl font-extrabold text-foreground">$3,800</p>
           <p className="mt-1 text-xs font-semibold text-foreground/50">This Month</p>
@@ -60,7 +60,7 @@ export default function EarningsPage() {
           className="manga-panel bg-white p-5"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
-            <ArrowDownRight size={20} className="text-amber-600" />
+            <ArrowDownRightIcon size={20} className="text-amber-600" />
           </div>
           <p className="mt-4 text-2xl font-extrabold text-foreground">$480</p>
           <p className="mt-1 text-xs font-semibold text-foreground/50">Pending</p>

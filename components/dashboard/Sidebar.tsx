@@ -5,47 +5,35 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import {
-  LayoutDashboard,
-  FileText,
-  Send,
-  MessageCircle,
-  Wallet,
-  Megaphone,
-  User,
-  Settings,
-  ChevronLeft,
-  LogOut,
-} from "lucide-react";
-
-const menuIcons: Record<string, string> = {
-  "/dashboard": "📊",
-  "/dashboard/my-posts": "📝",
-  "/dashboard/proposals": "💌",
-  "/dashboard/messages": "💬",
-  "/dashboard/earnings": "💰",
-  "/dashboard/campaigns": "📢",
-  "/dashboard/profile": "👤",
-  "/dashboard/settings": "⚙️",
-};
+  LayoutDashboardIcon,
+  FileTextIcon,
+  SendIcon,
+  MessageIcon,
+  WalletIcon,
+  MegaphoneIcon,
+  UserIcon,
+  SettingsIcon,
+  ChevronLeftIcon,
+  LogOutIcon,
+} from "@/components/icons";
 
 export function Sidebar() {
   const pathname = usePathname();
   const { t } = useI18n();
 
   const links = [
-    { label: t.dashboard.overview, href: "/dashboard", icon: LayoutDashboard },
-    { label: t.dashboard.myPosts, href: "/dashboard/my-posts", icon: FileText },
-    { label: t.dashboard.proposals, href: "/dashboard/proposals", icon: Send },
-    { label: t.dashboard.messages, href: "/dashboard/messages", icon: MessageCircle },
-    { label: t.dashboard.earnings, href: "/dashboard/earnings", icon: Wallet },
-    { label: t.dashboard.campaigns, href: "/dashboard/campaigns", icon: Megaphone },
-    { label: t.dashboard.profile, href: "/dashboard/profile", icon: User },
-    { label: t.dashboard.settings, href: "/dashboard/settings", icon: Settings },
+    { label: t.dashboard.overview, href: "/dashboard", icon: LayoutDashboardIcon, emoji: "📊" },
+    { label: t.dashboard.myPosts, href: "/dashboard/my-posts", icon: FileTextIcon, emoji: "📝" },
+    { label: t.dashboard.proposals, href: "/dashboard/proposals", icon: SendIcon, emoji: "💌" },
+    { label: t.dashboard.messages, href: "/dashboard/messages", icon: MessageIcon, emoji: "💬" },
+    { label: t.dashboard.earnings, href: "/dashboard/earnings", icon: WalletIcon, emoji: "💰" },
+    { label: t.dashboard.campaigns, href: "/dashboard/campaigns", icon: MegaphoneIcon, emoji: "📢" },
+    { label: t.dashboard.profile, href: "/dashboard/profile", icon: UserIcon, emoji: "👤" },
+    { label: t.dashboard.settings, href: "/dashboard/settings", icon: SettingsIcon, emoji: "⚙️" },
   ];
 
   return (
     <aside className="hidden lg:flex lg:w-64 lg:flex-col bg-white border-r-[3px] border-foreground">
-      {/* Header - Game inventory style */}
       <div className="flex h-16 items-center gap-2.5 px-6 border-b-[3px] border-foreground bg-primary/5">
         <Image
           src="/images/ineed-logo.jpg"
@@ -61,7 +49,6 @@ export function Sidebar() {
         </span>
       </div>
 
-      {/* Menu - Game inventory style */}
       <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         {links.map((link) => {
           const Icon = link.icon;
@@ -80,24 +67,23 @@ export function Sidebar() {
                   : "text-foreground/60 hover:bg-muted hover:text-foreground border-transparent hover:border-foreground/10"
               }`}
             >
-              <span className="text-base">{menuIcons[link.href] || "📌"}</span>
+              <Icon size={18} />
               {link.label}
             </Link>
           );
         })}
       </nav>
 
-      {/* Footer */}
       <div className="px-3 py-4 border-t-[3px] border-foreground space-y-0.5">
         <Link
           href="/"
           className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-foreground/60 transition-all duration-200 hover:bg-muted hover:text-foreground cursor-pointer border-2 border-transparent hover:border-foreground/10"
         >
-          <ChevronLeft size={18} />
+          <ChevronLeftIcon size={18} />
           {t.dashboard.backToHome}
         </Link>
         <button className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-destructive transition-all duration-200 hover:bg-destructive/10 cursor-pointer w-full border-2 border-transparent hover:border-destructive/20">
-          <LogOut size={18} />
+          <LogOutIcon size={18} />
           {t.dashboard.signOut}
         </button>
       </div>

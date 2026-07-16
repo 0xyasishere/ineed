@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
-import { Plus, Megaphone } from "lucide-react";
+import { PlusIcon, MegaphoneIcon } from "@/components/icons";
 import { motion } from "framer-motion";
 
 const campaigns = [
@@ -26,7 +26,7 @@ export default function CampaignsPage() {
           <p className="mt-1 text-sm text-foreground/50">{t.dashboard.campaignsDesc}</p>
         </div>
         <button className="inline-flex items-center gap-2 manga-outline-sm bg-primary px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg cursor-pointer self-start">
-          <Plus size={16} />
+          <PlusIcon size={16} />
           New Campaign
         </button>
       </motion.div>
@@ -43,7 +43,7 @@ export default function CampaignsPage() {
           >
             <div className="flex items-start justify-between">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-                <Megaphone size={20} className="text-primary" />
+                <MegaphoneIcon size={20} className="text-primary" />
               </div>
               <span className={`inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-bold ${
                 c.status === "active" ? "bg-emerald-100 text-emerald-700" : "bg-gray-100 text-gray-500"

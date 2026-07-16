@@ -54,21 +54,21 @@ html {
   overflow: hidden;
 }
 
-/* Manga panel border effect */
+/* ========== MANGA PANEL ========== */
 .manga-panel {
   border: 3px solid var(--color-border);
   border-radius: 4px;
   position: relative;
-  box-shadow: 4px 4px 0 var(--color-primary);
+  box-shadow: 5px 5px 0 var(--color-primary);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .manga-panel:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--color-primary);
+  box-shadow: 7px 7px 0 var(--color-primary), 0 0 0 2px var(--color-primary);
 }
 
-/* Manga thick outline */
+/* ========== MANGA OUTLINE ========== */
 .manga-outline {
   border: 3px solid var(--color-border);
   box-shadow: 3px 3px 0 var(--color-primary);
@@ -79,12 +79,12 @@ html {
   box-shadow: 2px 2px 0 var(--color-primary);
 }
 
-/* Speech bubble */
+/* ========== SPEECH BUBBLE ========== */
 .speech-bubble {
   position: relative;
   background: var(--color-speech-bg);
   border: 3px solid var(--color-border);
-  border-radius: 20px;
+  border-radius: 24px;
   padding: 1.5rem;
   box-shadow: 4px 4px 0 var(--color-primary);
 }
@@ -92,29 +92,28 @@ html {
 .speech-bubble::after {
   content: '';
   position: absolute;
-  bottom: -16px;
+  bottom: -18px;
   left: 30px;
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 16px solid var(--color-primary);
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 18px solid var(--color-border);
 }
 
 .speech-bubble::before {
   content: '';
   position: absolute;
-  bottom: -12px;
+  bottom: -13px;
   left: 33px;
   width: 0;
   height: 0;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-top: 13px solid var(--color-speech-bg);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 14px solid var(--color-speech-bg);
   z-index: 1;
 }
 
-/* Speech bubble right variant */
 .speech-bubble-right::after {
   left: auto;
   right: 30px;
@@ -125,26 +124,52 @@ html {
   right: 33px;
 }
 
-/* Speed lines background */
+/* ========== SPEED LINES ========== */
 .speed-lines {
   background-image:
     repeating-linear-gradient(
       -45deg,
       transparent,
-      transparent 20px,
-      rgba(45, 138, 86, 0.06) 20px,
-      rgba(45, 138, 86, 0.06) 21px
+      transparent 15px,
+      rgba(45, 138, 86, 0.05) 15px,
+      rgba(45, 138, 86, 0.05) 16px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 25px,
+      rgba(15, 36, 48, 0.03) 25px,
+      rgba(15, 36, 48, 0.03) 26px
     );
 }
 
-/* Halftone dot pattern */
+/* ========== HALFTONE ========== */
 .halftone {
-  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
-  background-size: 12px 12px;
-  opacity: 0.06;
+  background-image: radial-gradient(circle, var(--color-border) 1.2px, transparent 1.2px);
+  background-size: 10px 10px;
+  opacity: 0.07;
 }
 
-/* Manga title text */
+/* ========== CROSSHATCH ========== */
+.crosshatch {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 4px,
+      rgba(15, 36, 48, 0.04) 4px,
+      rgba(15, 36, 48, 0.04) 5px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 4px,
+      rgba(15, 36, 48, 0.04) 4px,
+      rgba(15, 36, 48, 0.04) 5px
+    );
+}
+
+/* ========== MANGA TITLE TEXT ========== */
 .manga-title {
   font-family: var(--font-manga);
   letter-spacing: 0.05em;
@@ -153,7 +178,7 @@ html {
   paint-order: stroke fill;
 }
 
-/* SFX text */
+/* ========== SFX TEXT ========== */
 .sfx-text {
   font-family: var(--font-manga);
   transform: rotate(-8deg);
@@ -161,7 +186,25 @@ html {
   -webkit-text-stroke: 0.5px var(--color-border);
 }
 
-/* Scrollbar manga style */
+/* ========== MANGA ACTION STAR ========== */
+.manga-star {
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%,
+    79% 91%, 50% 70%, 21% 91%, 32% 57%,
+    2% 35%, 39% 35%
+  );
+}
+
+/* ========== MANGA ZIGZAG BORDER ========== */
+.manga-zigzag {
+  background-image:
+    linear-gradient(135deg, var(--color-primary) 25%, transparent 25%),
+    linear-gradient(225deg, var(--color-primary) 25%, transparent 25%);
+  background-size: 20px 20px;
+  background-position: 0 0;
+}
+
+/* ========== SCROLLBAR ========== */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -179,7 +222,7 @@ html {
   background: var(--color-primary);
 }
 
-/* Focus ring */
+/* ========== FOCUS RING ========== */
 *:focus-visible {
   outline: 3px solid var(--color-primary);
   outline-offset: 2px;
