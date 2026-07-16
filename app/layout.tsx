@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FreelanceHub – Find Top Freelancers",
+  title: "ineed – Whatever you need, we've got the talent.",
   description:
     "Connect with skilled professionals for web development, design, marketing, and more.",
 };

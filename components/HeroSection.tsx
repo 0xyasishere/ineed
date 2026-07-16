@@ -18,10 +18,9 @@ export function HeroSection() {
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-foreground leading-[1.05]">
-            Work with the
+            Whatever you need,
             <br />
-            best freelancers
-            <span className="text-primary"> worldwide</span>
+            <span className="text-primary">we&apos;ve got</span> the talent.
           </h1>
 
           <p className="mt-6 text-lg sm:text-xl leading-relaxed text-foreground/60 max-w-lg">

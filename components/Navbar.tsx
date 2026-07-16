@@ -23,7 +23,7 @@ export function Navbar() {
                 <span className="text-sm font-extrabold text-on-primary">F</span>
               </div>
               <span className="text-lg font-extrabold tracking-tight text-foreground">
-                FreelanceHub
+                ineed
               </span>
             </Link>
 

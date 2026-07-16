@@ -38,7 +38,7 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
-            Why choose FreelanceHub
+            Why choose ineed
           </h2>
           <p className="mt-3 text-foreground/50 text-sm max-w-md mx-auto">
             Everything you need to find the right professional and get your
@@ -75,7 +75,7 @@ export default function Home() {
           </h2>
           <p className="mt-4 text-white/60 text-sm max-w-md mx-auto">
             Join thousands of freelancers and businesses already using
-            FreelanceHub to get work done.
+            ineed to get work done.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
@@ -102,7 +102,7 @@ export default function Home() {
                 <span className="text-xs font-extrabold text-on-primary">F</span>
               </div>
               <span className="text-sm font-extrabold text-foreground">
-                FreelanceHub
+                ineed
               </span>
             </div>
             <div className="flex items-center gap-6 text-xs font-medium text-foreground/40">
@@ -115,7 +115,7 @@ export default function Home() {
               <a href="#" className="hover:text-foreground/60 transition-colors cursor-pointer">
                 Help
               </a>
-              <span>© 2026 FreelanceHub</span>
+              <span>© 2026 ineed</span>
             </div>
           </div>
         </div>
