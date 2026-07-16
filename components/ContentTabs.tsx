@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ServiceGridCard } from "@/components/ServiceGridCard";
-import { JobGridCard } from "@/components/JobGridCard";
+import { ServiceGridCard, JobGridCard } from "@/components/Cards";
 import type { Service, Job } from "@/types/service";
+import { Sparkles, Briefcase } from "lucide-react";
 
 const services: Service[] = [
   {
@@ -168,42 +168,43 @@ const jobs: Job[] = [
 ];
 
 const tabs = [
-  { id: "services", label: "Browse Services", icon: "✦" },
-  { id: "jobs", label: "Job Opportunities", icon: "◆" },
-] as const;
-
-type TabId = (typeof tabs)[number]["id"];
+  { id: "services" as const, label: "Browse Services", icon: Sparkles },
+  { id: "jobs" as const, label: "Job Opportunities", icon: Briefcase },
+];
 
 export function ContentTabs() {
-  const [activeTab, setActiveTab] = useState<TabId>("services");
+  const [activeTab, setActiveTab] = useState<"services" | "jobs">("services");
 
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-      <div className="flex items-center gap-1 rounded-xl bg-gray-100 p-1 max-w-md mx-auto mb-10">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex-1 flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-all duration-200 ${
-              activeTab === tab.id
-                ? "bg-white text-gray-900 shadow-sm"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            <span className="text-xs">{tab.icon}</span>
-            {tab.label}
-          </button>
-        ))}
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="flex items-center gap-1 rounded-2xl bg-muted p-1.5 max-w-md mx-auto mb-12">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-1 flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-all duration-200 cursor-pointer ${
+                activeTab === tab.id
+                  ? "bg-white text-primary shadow-md shadow-primary/10"
+                  : "text-foreground/50 hover:text-foreground/70"
+              }`}
+            >
+              <Icon size={14} />
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
 
       {activeTab === "services" ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {services.map((service) => (
             <ServiceGridCard key={service.id} service={service} />
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {jobs.map((job) => (
             <JobGridCard key={job.id} job={job} />
           ))}
