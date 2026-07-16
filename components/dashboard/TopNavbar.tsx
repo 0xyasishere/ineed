@@ -23,9 +23,9 @@ export function TopNavbar() {
         {/* Language Switcher */}
         <button
           onClick={() => setLocale(locale === "id" ? "en" : "id")}
-          className="flex items-center gap-1.5 manga-outline-sm px-3 py-2 text-xs font-bold text-foreground/60 transition-all duration-200 hover:bg-muted cursor-pointer"
+          className="flex items-center gap-2 manga-outline-sm px-4 py-2.5 text-sm font-bold text-foreground transition-all duration-200 hover:bg-foreground hover:text-white cursor-pointer"
         >
-          {locale === "id" ? "🇯🇵 EN" : "🇮🇩 ID"}
+          {locale === "id" ? "🇬🇧 EN" : "🇮🇩 ID"}
         </button>
 
         {/* Notifications */}

@@ -52,9 +52,13 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={() => setLocale(locale === "id" ? "en" : "id")}
-              className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-bold text-foreground/60 border-2 border-foreground/20 transition-all hover:bg-muted cursor-pointer"
+              className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-bold text-foreground border-2 border-foreground/30 transition-all hover:bg-foreground hover:text-white cursor-pointer"
             >
-              {locale === "id" ? "🇯🇵 EN" : "🇮🇩 ID"}
+              {locale === "id" ? (
+                <>🇬🇧 English</>
+              ) : (
+                <>🇮🇩 Indonesia</>
+              )}
             </button>
 
             <a
@@ -102,6 +106,12 @@ export function Navbar() {
                 </a>
               ))}
               <div className="mt-3 flex flex-col gap-2 border-t-[3px] border-foreground/20 pt-3">
+                <button
+                  onClick={() => { setLocale(locale === "id" ? "en" : "id"); setMobileOpen(false); }}
+                  className="rounded-lg px-4 py-3 text-center text-sm font-bold text-foreground border-2 border-foreground/30 hover:bg-foreground hover:text-white cursor-pointer"
+                >
+                  {locale === "id" ? "🇬🇧 English" : "🇮🇩 Indonesia"}
+                </button>
                 <a href="#" className="rounded-lg px-4 py-3 text-center text-sm font-bold text-foreground/70 hover:bg-muted border-2 border-foreground/20 cursor-pointer">
                   {t.nav.login}
                 </a>
