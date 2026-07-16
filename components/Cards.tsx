@@ -10,6 +10,7 @@ import {
   BadgeCheck,
 } from "lucide-react";
 import type { Service, Job } from "@/types/service";
+import { useI18n } from "@/lib/i18n";
 
 const categoryGradients: Record<string, string> = {
   "UI/UX Design": "from-pink-400 to-rose-500",
@@ -24,6 +25,7 @@ const categoryGradients: Record<string, string> = {
 };
 
 export function ServiceGridCard({ service }: { service: Service }) {
+  const { t } = useI18n();
   const gradient = categoryGradients[service.category] || "from-gray-400 to-gray-500";
 
   return (
@@ -66,7 +68,7 @@ export function ServiceGridCard({ service }: { service: Service }) {
                 <p className="text-xs font-bold text-foreground">
                   {service.freelancer.name}
                 </p>
-                <p className="text-[10px] text-foreground/55">Seller</p>
+                <p className="text-[10px] text-foreground/55">{t.card.seller}</p>
               </div>
             </div>
             <span className="text-xl font-manga text-foreground tracking-wide" style={{ textShadow: "1px 1px 0 var(--color-primary)" }}>
@@ -76,7 +78,7 @@ export function ServiceGridCard({ service }: { service: Service }) {
         </div>
 
         <button className="mt-4 w-full manga-outline-sm bg-muted py-3 text-xs font-bold text-primary transition-all duration-200 hover:bg-primary hover:text-white cursor-pointer flex items-center justify-center gap-1.5">
-          View Details
+          {t.card.viewDetails}
           <ChevronRight size={12} />
         </button>
       </div>
@@ -85,6 +87,7 @@ export function ServiceGridCard({ service }: { service: Service }) {
 }
 
 export function JobGridCard({ job }: { job: Job }) {
+  const { t } = useI18n();
   const gradient = categoryGradients[job.category] || "from-gray-400 to-gray-500";
 
   return (
@@ -98,7 +101,7 @@ export function JobGridCard({ job }: { job: Job }) {
           {job.category}
         </span>
         <span className="absolute top-3 right-3 inline-flex items-center gap-1 manga-outline-sm bg-accent/90 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-white">
-          <BadgeCheck size={10} /> Open
+          <BadgeCheck size={10} /> {t.card.open}
         </span>
         <div className="relative z-10 flex items-center gap-2 text-[11px] font-bold text-white/80">
           <Clock size={10} />
@@ -149,12 +152,12 @@ export function JobGridCard({ job }: { job: Job }) {
             rel="noopener noreferrer"
             className="mt-4 w-full manga-outline-sm bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-foreground)] cursor-pointer flex items-center justify-center gap-1.5"
           >
-            Apply Now ⚡
+            {t.card.applyNow} ⚡
             <ChevronRight size={12} />
           </a>
         ) : (
           <button className="mt-4 w-full manga-outline-sm bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-foreground)] cursor-pointer flex items-center justify-center gap-1.5">
-            Apply Now ⚡
+            {t.card.applyNow} ⚡
             <ChevronRight size={12} />
           </button>
         )}

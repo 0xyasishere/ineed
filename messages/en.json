@@ -18,7 +18,13 @@
     "popular": "Popular:"
   },
   "campaign": {
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "slide1Title": "New Arc: Verified Seller Program!",
+    "slide1Sub": "Apply now to earn a verified badge and stand out to clients. Limited spots available!",
+    "slide2Title": "UMKM Special Event!",
+    "slide2Sub": "Business level up! Post a job this week and get 20% off your next service purchase.",
+    "slide3Title": "Top AI & ML Experts!",
+    "slide3Sub": "Browse our curated list of machine learning engineers and data scientists ready to hire."
   },
   "tabs": {
     "services": "Browse Services",
@@ -57,7 +63,13 @@
   },
   "umkm": {
     "subtitle": "Level up your business! Join and boost your business with ineed.",
-    "cta": "Join Now"
+    "cta": "Join Now",
+    "feat1Title": "Free Online Store",
+    "feat1Desc": "Open a digital store with zero setup cost",
+    "feat2Title": "Level Up!",
+    "feat2Desc": "Analytics tools to boost your sales",
+    "feat3Title": "UMKM Badge",
+    "feat3Desc": "Mark your business as a supported UMKM"
   },
   "dashboard": {
     "overview": "Overview",

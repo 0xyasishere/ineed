@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 import { Rocket, Store, TrendingUp, Star, ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
-const umkmFeatures = [
-  { icon: Store, title: "Toko Online Gratis", desc: "Buka toko digital tanpa biaya setup" },
-  { icon: TrendingUp, title: "Naik Level!", desc: "Tools analytics untuk boost penjualan" },
-  { icon: Star, title: "Badge UMKM", desc: "Tandai bisnismu sebagai UMKM binaan" },
-];
-
 export function UMKMCorner() {
   const { t } = useI18n();
+
+  const umkmFeatures = [
+    { icon: Store, title: t.umkm.feat1Title, desc: t.umkm.feat1Desc },
+    { icon: TrendingUp, title: t.umkm.feat2Title, desc: t.umkm.feat2Desc },
+    { icon: Star, title: t.umkm.feat3Title, desc: t.umkm.feat3Desc },
+  ];
 
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">

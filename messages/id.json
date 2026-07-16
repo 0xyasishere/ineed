@@ -18,7 +18,13 @@
     "popular": "Populer:"
   },
   "campaign": {
-    "learnMore": "Pelajari Lebih Lanjut"
+    "learnMore": "Pelajari Lebih Lanjut",
+    "slide1Title": "Arc Baru: Program Penjual Terverifikasi!",
+    "slide1Sub": "Lamar sekarang untuk mendapatkan lencana verifikasi dan menonjol di mata klien. Kuota terbatas!",
+    "slide2Title": "Event Spesial UMKM!",
+    "slide2Sub": "Bisnis naik level! Posting pekerjaan minggi ini dan dapatkan diskon 20% untuk pembelian layanan berikutnya.",
+    "slide3Title": "Ahli AI & ML Terbaik!",
+    "slide3Sub": "Jelajahi daftar kurasi engineer machine learning dan data scientist yang siap dipekerjakan."
   },
   "tabs": {
     "services": "Jelajahi Layanan",
@@ -57,7 +63,13 @@
   },
   "umkm": {
     "subtitle": "Bisnis naik level! Bergabung dan naikkan level bisnismu bersama ineed.",
-    "cta": "Gabung Sekarang"
+    "cta": "Gabung Sekarang",
+    "feat1Title": "Toko Online Gratis",
+    "feat1Desc": "Buka toko digital tanpa biaya setup",
+    "feat2Title": "Naik Level!",
+    "feat2Desc": "Tools analytics untuk boost penjualan",
+    "feat3Title": "Badge UMKM",
+    "feat3Desc": "Tandai bisnismu sebagai UMKM binaan"
   },
   "dashboard": {
     "overview": "Ringkasan",

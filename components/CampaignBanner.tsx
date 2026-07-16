@@ -4,33 +4,35 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { CampaignSlide } from "@/types/service";
-
-const slides: CampaignSlide[] = [
-  {
-    id: "1",
-    title: "New Arc: Verified Seller Program!",
-    subtitle: "Apply now to earn a verified badge and stand out to clients. Limited spots available!",
-    accent: "bg-primary",
-    icon: "⚔️",
-  },
-  {
-    id: "2",
-    title: "UMKM Special Event!",
-    subtitle: "Bisnis naik level! Post a job this week and get 20% off your next service purchase.",
-    accent: "bg-accent",
-    icon: "🔥",
-  },
-  {
-    id: "3",
-    title: "Top AI & ML Experts!",
-    subtitle: "Browse our curated list of machine learning engineers and data scientists ready to hire.",
-    accent: "bg-secondary",
-    icon: "💎",
-  },
-];
+import { useI18n } from "@/lib/i18n";
 
 export function CampaignBanner() {
   const [current, setCurrent] = useState(0);
+  const { t } = useI18n();
+
+  const slides: CampaignSlide[] = [
+    {
+      id: "1",
+      title: t.campaign.slide1Title,
+      subtitle: t.campaign.slide1Sub,
+      accent: "bg-primary",
+      icon: "⚔️",
+    },
+    {
+      id: "2",
+      title: t.campaign.slide2Title,
+      subtitle: t.campaign.slide2Sub,
+      accent: "bg-accent",
+      icon: "🔥",
+    },
+    {
+      id: "3",
+      title: t.campaign.slide3Title,
+      subtitle: t.campaign.slide3Sub,
+      accent: "bg-secondary",
+      icon: "💎",
+    },
+  ];
 
   const next = useCallback(() => {
     setCurrent((prev) => (prev + 1) % slides.length);
@@ -83,7 +85,7 @@ export function CampaignBanner() {
               {slide.subtitle}
             </p>
             <button className="mt-5 inline-flex items-center gap-2 manga-outline-sm bg-white/10 backdrop-blur-sm px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:bg-white/20 hover:shadow-[4px_4px_0_rgba(255,255,255,0.2)] cursor-pointer">
-              Learn More
+              {t.campaign.learnMore}
               <ArrowUpRight size={14} />
             </button>
           </motion.div>
