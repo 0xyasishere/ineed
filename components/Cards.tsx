@@ -137,15 +137,27 @@ export function JobGridCard({ job }: { job: Job }) {
               </span>
             </div>
             <span className="text-xl font-manga text-foreground tracking-wide" style={{ textShadow: "1px 1px 0 var(--color-primary)" }}>
-              {job.currency}{job.budget.toLocaleString()}
+              {job.budget > 0 ? `${job.currency}${job.budget.toLocaleString()}` : "Paid"}
             </span>
           </div>
         </div>
 
-        <button className="mt-4 w-full manga-outline-sm bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-foreground)] cursor-pointer flex items-center justify-center gap-1.5">
-          Apply Now ⚡
-          <ChevronRight size={12} />
-        </button>
+        {job.url ? (
+          <a
+            href={job.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 w-full manga-outline-sm bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-foreground)] cursor-pointer flex items-center justify-center gap-1.5"
+          >
+            Apply Now ⚡
+            <ChevronRight size={12} />
+          </a>
+        ) : (
+          <button className="mt-4 w-full manga-outline-sm bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-foreground)] cursor-pointer flex items-center justify-center gap-1.5">
+            Apply Now ⚡
+            <ChevronRight size={12} />
+          </button>
+        )}
       </div>
     </motion.article>
   );

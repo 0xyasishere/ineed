@@ -25,6 +25,14 @@ const jobs: Job[] = [
   { id: "j6", title: "DevOps AWS Infrastructure Setup", description: "Configure production AWS infrastructure with Terraform, CI/CD pipelines, and monitoring.", budget: 4000, currency: "$", category: "DevOps", postedBy: "ScaleUp.io", postedAt: "6 hours ago", applicants: 4, image: "", tags: ["AWS", "Terraform", "CI/CD"] },
 ];
 
+const remoteJobs: Job[] = [
+  { id: "r1", title: "Community Manager", description: "Help grow the $qONE ecosystem on Hyperliquid by creating content, driving conversations around quantum security, and supporting daily community culture across X, Discord, and Telegram.", budget: 50, currency: "$", category: "Community", postedBy: "qLABS", postedAt: "Just now", applicants: 0, image: "", tags: ["Web3", "Community", "Remote"], url: "https://docs.google.com/forms/d/e/1FAIpQLScwLzOiufq925Oq2y6NAqA2FMoukkopJgmcPt1huQy7_4rFKQ/viewform" },
+  { id: "r2", title: "Community Manager", description: "Join Colonist as Community Manager. Build and engage the community, manage social channels, and drive growth for the platform.", budget: 0, currency: "$", category: "Community", postedBy: "Colonist", postedAt: "Just now", applicants: 0, image: "", tags: ["Gaming", "Community", "Remote"], url: "https://jobs.ashbyhq.com/colonist/2ec0bf9a-9e89-4f76-b527-c10f8d5c3a11" },
+  { id: "r3", title: "Support Manager", description: "Join Flipper Devices as Support Manager. Help users worldwide with device support, manage tickets, and improve customer experience.", budget: 0, currency: "$", category: "Support", postedBy: "Flipper Devices", postedAt: "Just now", applicants: 0, image: "", tags: ["Hardware", "Support", "Remote"], url: "https://flipperdevices.com/jobs/?ashby_jid=1730954b-ba77-4416-bbd9-5757825891d7" },
+  { id: "r4", title: "Discord Moderator", description: "Moderate Holvia's official Discord server. Keep discussions organized, welcome newcomers, and support the Web3 community.", budget: 0, currency: "$", category: "Community", postedBy: "Holvia", postedAt: "Just now", applicants: 0, image: "", tags: ["Web3", "Discord", "Moderation"], url: "https://www.holvia.xyz/career/roles/discord-moderator" },
+  { id: "r5", title: "Country Community MOD", description: "Help AllScale grow local communities and expand awareness for stablecoin payment products. Manage community conversations and identify business opportunities.", budget: 0, currency: "$", category: "Community", postedBy: "AllScale (YZi Labs)", postedAt: "Just now", applicants: 0, image: "", tags: ["Web3", "Stablecoin", "Community"], url: "https://talent.yzilabs.com/jobs/1b5aaa61-0ffb-4fc4-9e2c-46d9c746a9a0" },
+];
+
 const tabs = [
   { id: "services" as const, labelKey: "services", icon: Sparkles, sfx: "✨" },
   { id: "jobs" as const, labelKey: "jobs", icon: Briefcase, sfx: "💼" },
@@ -69,7 +77,7 @@ export function ContentTabs() {
         })}
       </motion.div>
 
-      {activeTab === "services" || activeTab === "remote" ? (
+      {activeTab === "services" ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {services.map((service, i) => (
             <motion.div
@@ -80,6 +88,20 @@ export function ContentTabs() {
               transition={{ delay: i * 0.08 }}
             >
               <ServiceGridCard service={service} />
+            </motion.div>
+          ))}
+        </div>
+      ) : activeTab === "remote" ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {remoteJobs.map((job, i) => (
+            <motion.div
+              key={job.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+            >
+              <JobGridCard job={job} />
             </motion.div>
           ))}
         </div>

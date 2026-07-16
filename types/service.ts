@@ -26,6 +26,7 @@ export interface Job {
   applicants: number;
   image: string;
   tags: string[];
+  url?: string;
 }
 
 export interface CampaignSlide {
