@@ -34,7 +34,7 @@ export function UMKMCorner() {
             >
               🚀
             </motion.span>
-            <h2 className="text-2xl sm:text-3xl font-manga tracking-wide text-foreground" style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.15)" }}>
+            <h2 className="text-2xl sm:text-3xl font-manga tracking-wide text-foreground" style={{ textShadow: "2px 2px 0 rgba(45,138,86,0.15)" }}>
               UMKM Power-Up!
             </h2>
           </div>

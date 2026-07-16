@@ -24,7 +24,7 @@ export function TrustSection() {
         viewport={{ once: true }}
         className="text-center mb-12"
       >
-        <h2 className="text-3xl sm:text-4xl font-manga tracking-wide text-foreground" style={{ textShadow: "3px 3px 0 var(--color-border)" }}>
+        <h2 className="text-3xl sm:text-4xl font-manga tracking-wide text-foreground" style={{ textShadow: "3px 3px 0 rgba(45,138,86,0.15)" }}>
           {t.trust.title}
         </h2>
         <p className="mt-3 text-foreground/60 text-sm max-w-md mx-auto font-medium">
