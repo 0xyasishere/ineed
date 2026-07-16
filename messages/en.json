@@ -112,14 +112,21 @@
   "auth": {
     "loginTitle": "Sign in to ineed",
     "loginDesc": "Welcome back! Please sign in to your account.",
+    "registerTitle": "Create your account",
+    "registerDesc": "Join thousands of freelancers and businesses.",
+    "name": "Name",
     "email": "Email",
     "password": "Password",
     "forgotPassword": "Forgot password?",
     "loginButton": "Sign In",
+    "registerButton": "Create Account",
     "orContinueWith": "Or continue with",
     "google": "Google",
     "github": "GitHub",
     "noAccount": "Don't have an account?",
-    "signUp": "Sign Up"
+    "hasAccount": "Already have an account?",
+    "signUp": "Sign Up",
+    "checkEmail": "Check your email!",
+    "checkEmailDesc": "We sent a confirmation link to verify your account."
   }
 }

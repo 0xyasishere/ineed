@@ -112,14 +112,21 @@
   "auth": {
     "loginTitle": "Masuk ke ineed",
     "loginDesc": "Selamat datang kembali! Silakan masuk ke akun kamu.",
+    "registerTitle": "Buat akun kamu",
+    "registerDesc": "Bergabung dengan ribuan freelancer dan bisnis.",
+    "name": "Nama",
     "email": "Email",
     "password": "Kata Sandi",
     "forgotPassword": "Lupa kata sandi?",
     "loginButton": "Masuk",
+    "registerButton": "Buat Akun",
     "orContinueWith": "Atau lanjutkan dengan",
     "google": "Google",
     "github": "GitHub",
     "noAccount": "Belum punya akun?",
-    "signUp": "Daftar"
+    "hasAccount": "Sudah punya akun?",
+    "signUp": "Daftar",
+    "checkEmail": "Cek email kamu!",
+    "checkEmailDesc": "Kami sudah mengirim link konfirmasi untuk verifikasi akun kamu."
   }
 }

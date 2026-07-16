@@ -9,25 +9,32 @@ import { EyeIcon, EyeOffIcon } from "@/components/icons";
 import { motion } from "framer-motion";
 import { SpeedLines, HalftoneOverlay } from "@/components/manga/Elements";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const { t } = useI18n();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const supabase = createClient();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { name } },
+    });
     if (error) {
       setError(error.message);
       setLoading(false);
     } else {
-      window.location.href = "/dashboard";
+      setSuccess(true);
+      setLoading(false);
     }
   };
 
@@ -40,13 +47,38 @@ export default function LoginPage() {
     if (error) setError(error.message);
   };
 
+  if (success) {
+    return (
+      <div className="relative min-h-screen bg-background flex items-center justify-center px-4 py-12 overflow-hidden">
+        <SpeedLines count={15} />
+        <HalftoneOverlay className="!opacity-[0.04]" />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="relative z-10 manga-panel bg-white p-10 text-center max-w-sm"
+        >
+          <span className="text-5xl mb-4 block">✉️</span>
+          <h2 className="text-xl font-manga tracking-wide text-foreground" style={{ textShadow: "2px 2px 0 rgba(45,138,86,0.1)" }}>
+            {t.auth.checkEmail || "Check your email!"}
+          </h2>
+          <p className="mt-2 text-sm text-foreground/50">
+            {t.auth.checkEmailDesc || "We sent a confirmation link to verify your account."}
+          </p>
+          <Link href="/auth/login" className="mt-6 inline-block manga-outline-sm bg-primary px-6 py-2.5 text-sm font-bold text-white hover:bg-primary/90 transition-all">
+            {t.auth.loginButton}
+          </Link>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen bg-background flex items-center justify-center px-4 py-12 overflow-hidden">
       <SpeedLines count={15} />
       <HalftoneOverlay className="!opacity-[0.04]" />
 
-      <span className="absolute top-10 right-[10%] font-manga text-primary/[0.05] text-6xl select-none pointer-events-none">WELCOME</span>
-      <span className="absolute bottom-10 left-[5%] font-manga text-accent/[0.04] text-5xl select-none pointer-events-none">BACK!</span>
+      <span className="absolute top-10 right-[10%] font-manga text-primary/[0.05] text-6xl select-none pointer-events-none">JOIN</span>
+      <span className="absolute bottom-10 left-[5%] font-manga text-accent/[0.04] text-5xl select-none pointer-events-none">US!</span>
 
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -65,9 +97,9 @@ export default function LoginPage() {
             </span>
           </Link>
           <h1 className="text-2xl font-manga tracking-wide text-foreground" style={{ textShadow: "2px 2px 0 rgba(45,138,86,0.1)" }}>
-            {t.auth.loginTitle}
+            {t.auth.registerTitle || "Create your account"}
           </h1>
-          <p className="mt-2 text-sm text-foreground/50">{t.auth.loginDesc}</p>
+          <p className="mt-2 text-sm text-foreground/50">{t.auth.registerDesc || "Join thousands of freelancers and businesses."}</p>
         </div>
 
         {error && (
@@ -80,7 +112,18 @@ export default function LoginPage() {
           </motion.div>
         )}
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleRegister} className="space-y-4">
+          <div>
+            <label className="block text-xs font-bold text-foreground/60 mb-1.5">{t.auth.name || "Name"}</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full manga-outline bg-white px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition-all focus:border-primary focus:shadow-[4px_4px_0_var(--color-primary)]"
+              placeholder="John Doe"
+            />
+          </div>
           <div>
             <label className="block text-xs font-bold text-foreground/60 mb-1.5">{t.auth.email}</label>
             <input
@@ -100,6 +143,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                minLength={6}
                 className="w-full manga-outline bg-white px-4 py-3 pr-10 text-sm text-foreground placeholder-foreground/30 outline-none transition-all focus:border-primary focus:shadow-[4px_4px_0_var(--color-primary)]"
                 placeholder="••••••••"
               />
@@ -111,11 +155,6 @@ export default function LoginPage() {
                 {showPassword ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
               </button>
             </div>
-            <div className="mt-2 text-right">
-              <Link href="/auth/forgot" className="text-xs font-semibold text-primary hover:underline cursor-pointer">
-                {t.auth.forgotPassword}
-              </Link>
-            </div>
           </div>
           <motion.button
             type="submit"
@@ -124,7 +163,7 @@ export default function LoginPage() {
             whileTap={{ scale: 0.98 }}
             className="w-full manga-outline-sm bg-primary py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 disabled:opacity-50 cursor-pointer"
           >
-            {loading ? "..." : t.auth.loginButton}
+            {loading ? "..." : t.auth.registerButton || "Create Account"}
           </motion.button>
         </form>
 
@@ -154,9 +193,9 @@ export default function LoginPage() {
         </div>
 
         <p className="mt-8 text-center text-sm text-foreground/50">
-          {t.auth.noAccount}{" "}
-          <Link href="/auth/register" className="font-bold text-primary hover:underline cursor-pointer">
-            {t.auth.signUp}
+          {t.auth.hasAccount || "Already have an account?"}{" "}
+          <Link href="/auth/login" className="font-bold text-primary hover:underline cursor-pointer">
+            {t.auth.loginButton}
           </Link>
         </p>
       </motion.div>

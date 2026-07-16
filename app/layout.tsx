@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { I18nProvider } from "@/lib/i18n";
+import { AuthProvider } from "@/lib/auth";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="id" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
-        <I18nProvider>{children}</I18nProvider>
+        <I18nProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </I18nProvider>
       </body>
     </html>
   );

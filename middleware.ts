@@ -1,13 +1,11 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { updateSession } from "@/lib/supabase/server";
 
 const ROOT_DOMAIN = "ineed.web.id";
 const APP_DOMAIN = "app.ineed.web.id";
 
 function getHostname(request: NextRequest): string {
-  const host =
-    request.headers.get("x-forwarded-host") ||
-    request.nextUrl.hostname;
-  return host;
+  return request.headers.get("x-forwarded-host") || request.nextUrl.hostname;
 }
 
 function isRootDomain(hostname: string): boolean {
@@ -31,39 +29,37 @@ function isPreviewDeployment(hostname: string): boolean {
   );
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const hostname = getHostname(request);
   const { pathname } = request.nextUrl;
 
-  // Preview deployments: detect via query param or serve landing by default
+  // Preview deployments
   if (isPreviewDeployment(hostname)) {
     const access = request.nextUrl.searchParams.get("access");
     if (access === "app") {
-      // Rewrite to dashboard routes for preview
-      const url = request.nextUrl.clone();
-      url.pathname = pathname;
-      return NextResponse.rewrite(url);
+      return updateSession(request);
     }
-    // Default: serve landing page on preview
     return NextResponse.next();
   }
 
-  // App subdomain: rewrite /dashboard/* and /auth/* paths
+  // App subdomain
   if (isAppSubdomain(hostname)) {
-    const url = request.nextUrl.clone();
-
     // Root of app subdomain → redirect to /dashboard
     if (pathname === "/") {
+      const url = request.nextUrl.clone();
       url.pathname = "/dashboard";
-      return NextResponse.rewrite(url);
+      return NextResponse.redirect(url);
     }
 
-    // All other paths on app subdomain serve as-is
-    // (dashboard routes live directly under app/ root via middleware rewrite)
+    // Protect dashboard routes (not auth routes)
+    if (pathname.startsWith("/dashboard")) {
+      return updateSession(request);
+    }
+
     return NextResponse.next();
   }
 
-  // Root domain: serve landing page as normal
+  // Root domain
   if (isRootDomain(hostname)) {
     // Block dashboard routes on root domain
     if (pathname.startsWith("/dashboard")) {
@@ -75,18 +71,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Unknown host: serve landing
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - api (API routes)
-     * - _next (Next.js internals)
-     * - static files (favicon, images, etc.)
-     */
     "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

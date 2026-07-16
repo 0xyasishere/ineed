@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
-import { MenuIcon, CloseIcon, GlobeIcon } from "@/components/icons";
+import { useAuth } from "@/lib/auth";
+import { MenuIcon, CloseIcon, GlobeIcon, UserIcon, LogOutIcon } from "@/components/icons";
 
 const navLinks = [
   { href: "/#services", labelKey: "services" },
@@ -15,6 +17,7 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { t, locale, setLocale } = useI18n();
+  const { user, loading, signOut } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 border-b-4 border-double border-foreground bg-background">
@@ -54,14 +57,40 @@ export function Navbar() {
             <span>{locale === "id" ? "EN" : "ID"}</span>
           </motion.button>
 
-          <motion.a
-            href="/auth/login"
-            whileHover={{ scale: 1.05, y: -1 }}
-            whileTap={{ scale: 0.95 }}
-            className="hidden md:inline-flex manga-outline-sm bg-primary px-4 py-2 text-xs font-bold text-white transition-all hover:bg-primary/90"
-          >
-            ⚡ {t.nav.getStarted}
-          </motion.a>
+          {!loading && (
+            <>
+              {user ? (
+                <div className="hidden md:flex items-center gap-2">
+                  <motion.a
+                    href="/dashboard"
+                    whileHover={{ scale: 1.05, y: -1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="manga-outline-sm bg-primary/10 px-4 py-2 text-xs font-bold text-primary transition-all hover:bg-primary/20 flex items-center gap-1.5"
+                  >
+                    <UserIcon size={14} />
+                    {t.nav.dashboard}
+                  </motion.a>
+                  <motion.button
+                    onClick={signOut}
+                    whileHover={{ scale: 1.05, y: -1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="manga-outline-sm px-3 py-2 text-xs font-bold text-foreground/50 hover:text-destructive hover:bg-destructive/5 transition-all cursor-pointer flex items-center gap-1"
+                  >
+                    <LogOutIcon size={14} />
+                  </motion.button>
+                </div>
+              ) : (
+                <motion.a
+                  href="/auth/login"
+                  whileHover={{ scale: 1.05, y: -1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="hidden md:inline-flex manga-outline-sm bg-primary px-4 py-2 text-xs font-bold text-white transition-all hover:bg-primary/90"
+                >
+                  ⚡ {t.nav.getStarted}
+                </motion.a>
+              )}
+            </>
+          )}
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -92,12 +121,33 @@ export function Navbar() {
                   {t.tabs[link.labelKey as keyof typeof t.tabs] || t.nav.services}
                 </a>
               ))}
-              <a
-                href="/auth/login"
-                className="manga-outline-sm bg-primary px-4 py-2.5 text-sm font-bold text-white text-center mt-2"
-              >
-                ⚡ {t.nav.getStarted}
-              </a>
+              {!loading && (
+                user ? (
+                  <>
+                    <a
+                      href="/dashboard"
+                      className="manga-outline-sm bg-primary/10 px-4 py-2.5 text-sm font-bold text-primary text-center mt-2 flex items-center justify-center gap-2"
+                    >
+                      <UserIcon size={16} />
+                      {t.nav.dashboard}
+                    </a>
+                    <button
+                      onClick={() => { signOut(); setMobileOpen(false); }}
+                      className="manga-outline-sm px-4 py-2.5 text-sm font-bold text-destructive text-center flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <LogOutIcon size={16} />
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <a
+                    href="/auth/login"
+                    className="manga-outline-sm bg-primary px-4 py-2.5 text-sm font-bold text-white text-center mt-2"
+                  >
+                    ⚡ {t.nav.getStarted}
+                  </a>
+                )
+              )}
             </nav>
           </motion.div>
         )}
