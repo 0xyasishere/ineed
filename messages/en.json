@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "jobs": "Jobs",
+    "dashboard": "Dashboard",
+    "login": "Log In",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "badge": "Trusted by 10,000+ freelancers",
+    "title1": "Whatever you need,",
+    "titleHighlight": "we've got",
+    "title2": "the talent.",
+    "subtitle": "Discover talented professionals, post projects, and get work done — all in one place.",
+    "searchPlaceholder": "Search services, skills, or jobs...",
+    "popular": "Popular:"
+  },
+  "campaign": {
+    "learnMore": "Learn More"
+  },
+  "tabs": {
+    "services": "Browse Services",
+    "jobs": "Job Opportunities"
+  },
+  "card": {
+    "dayDelivery": "day delivery",
+    "seller": "Seller",
+    "viewDetails": "View Details",
+    "applyNow": "Apply Now",
+    "open": "Open"
+  },
+  "trust": {
+    "title": "Why choose ineed",
+    "subtitle": "Everything you need to find the right professional and get your project done.",
+    "verified": "Verified Sellers",
+    "verifiedDesc": "Every seller is vetted for quality and reliability.",
+    "payments": "Secure Payments",
+    "paymentsDesc": "Escrow-based payments protect both buyers and sellers.",
+    "delivery": "On-Time Delivery",
+    "deliveryDesc": "98% of projects are delivered on or before the deadline.",
+    "support": "24/7 Support",
+    "supportDesc": "Our team is here to help whenever you need it."
+  },
+  "cta": {
+    "title": "Ready to get started?",
+    "subtitle": "Join thousands of freelancers and businesses already using ineed.",
+    "findFreelancer": "Find a Freelancer",
+    "startSelling": "Start Selling"
+  },
+  "footer": {
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "help": "Help"
+  },
+  "dashboard": {
+    "overview": "Overview",
+    "myPosts": "My Posts",
+    "proposals": "Proposals",
+    "messages": "Messages",
+    "earnings": "Earnings",
+    "campaigns": "Campaigns",
+    "profile": "Profile",
+    "settings": "Settings",
+    "backToHome": "Back to Home",
+    "signOut": "Sign Out",
+    "searchPlaceholder": "Search anything...",
+    "welcome": "Welcome back",
+    "welcomeDesc": "Manage your services, proposals, and earnings in one place.",
+    "postINeed": "Post I Need",
+    "activeListings": "Active Listings",
+    "pendingProposals": "Pending Proposals",
+    "totalEarnings": "Total Earnings",
+    "completedJobs": "Completed Jobs",
+    "recentListings": "Recent Listings",
+    "viewAll": "View All",
+    "myPostsTitle": "My Posts",
+    "myPostsDesc": "Manage all your services and posts.",
+    "proposalsTitle": "Proposals",
+    "proposalsDesc": "View and manage incoming and outgoing proposals.",
+    "messagesTitle": "Messages",
+    "messagesDesc": "Communicate with clients and freelancers.",
+    "earningsTitle": "Earnings",
+    "earningsDesc": "Track your earnings and withdrawals.",
+    "campaignsTitle": "Campaigns",
+    "campaignsDesc": "Manage promotional campaigns and discounts.",
+    "profileTitle": "Profile",
+    "profileDesc": "Manage your profile information and portfolio.",
+    "settingsTitle": "Settings",
+    "settingsDesc": "Configure your account, notifications, and security.",
+    "language": "Language",
+    "notifications": "Notifications"
+  },
+  "auth": {
+    "loginTitle": "Sign in to ineed",
+    "loginDesc": "Welcome back! Please sign in to your account.",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "loginButton": "Sign In",
+    "orContinueWith": "Or continue with",
+    "google": "Google",
+    "github": "GitHub",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up"
+  }
+}

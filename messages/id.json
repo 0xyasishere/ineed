@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "services": "Layanan",
+    "jobs": "Lowongan",
+    "dashboard": "Dasbor",
+    "login": "Masuk",
+    "getStarted": "Mulai Sekarang"
+  },
+  "hero": {
+    "badge": "Dipercaya oleh 10.000+ freelancer",
+    "title1": "Apa pun yang kamu butuhkan,",
+    "titleHighlight": "kami punya",
+    "title2": "ahlinya.",
+    "subtitle": "Temukan profesional berbakat, posting proyek, dan selesaikan pekerjaan — semuanya di satu tempat.",
+    "searchPlaceholder": "Cari layanan, keahlian, atau lowongan...",
+    "popular": "Populer:"
+  },
+  "campaign": {
+    "learnMore": "Pelajari Lebih Lanjut"
+  },
+  "tabs": {
+    "services": "Jelajahi Layanan",
+    "jobs": "Peluang Kerja"
+  },
+  "card": {
+    "dayDelivery": "hari pengiriman",
+    "seller": "Penjual",
+    "viewDetails": "Lihat Detail",
+    "applyNow": "Lamar Sekarang",
+    "open": "Terbuka"
+  },
+  "trust": {
+    "title": "Mengapa memilih ineed",
+    "subtitle": "Semua yang kamu butuhkan untuk menemukan profesional yang tepat dan menyelesaikan proyek.",
+    "verified": "Penjual Terverifikasi",
+    "verifiedDesc": "Setiap penjual ditinjau untuk kualitas dan keandalan.",
+    "payments": "Pembayaran Aman",
+    "paymentsDesc": "Pembayaran berbasis escrow melindungi pembeli dan penjual.",
+    "delivery": "Tepat Waktu",
+    "deliveryDesc": "98% proyek diselesaikan sebelum atau sesuai tenggat.",
+    "support": "Dukungan 24/7",
+    "supportDesc": "Tim kami siap membantu kapan pun kamu butuh."
+  },
+  "cta": {
+    "title": "Siap untuk memulai?",
+    "subtitle": "Bergabung dengan ribuan freelancer dan bisnis yang sudah menggunakan ineed.",
+    "findFreelancer": "Cari Freelancer",
+    "startSelling": "Mulai Menjual"
+  },
+  "footer": {
+    "terms": "Syarat",
+    "privacy": "Privasi",
+    "help": "Bantuan"
+  },
+  "dashboard": {
+    "overview": "Ringkasan",
+    "myPosts": "Postingan Saya",
+    "proposals": "Lamaran",
+    "messages": "Pesan",
+    "earnings": "Penghasilan",
+    "campaigns": "Kampanye",
+    "profile": "Profil",
+    "settings": "Pengaturan",
+    "backToHome": "Kembali ke Beranda",
+    "signOut": "Keluar",
+    "searchPlaceholder": "Cari apa pun...",
+    "welcome": "Selamat datang kembali",
+    "welcomeDesc": "Kelola layanan, lamaran, dan penghasilan kamu di satu tempat.",
+    "postINeed": "Posting I Need",
+    "activeListings": "Listing Aktif",
+    "pendingProposals": "Lamaran Tertunda",
+    "totalEarnings": "Total Penghasilan",
+    "completedJobs": "Pekerjaan Selesai",
+    "recentListings": "Listing Terbaru",
+    "viewAll": "Lihat Semua",
+    "myPostsTitle": "Postingan Saya",
+    "myPostsDesc": "Kelola semua layanan dan postingan kamu.",
+    "proposalsTitle": "Lamaran",
+    "proposalsDesc": "Lihat dan kelola lamaran yang masuk dan keluar.",
+    "messagesTitle": "Pesan",
+    "messagesDesc": "Komunikasi dengan klien dan freelancer.",
+    "earningsTitle": "Penghasilan",
+    "earningsDesc": "Pantau penghasilan dan penarikan dana.",
+    "campaignsTitle": "Kampanye",
+    "campaignsDesc": "Kelola kampanye promosi dan diskon.",
+    "profileTitle": "Profil",
+    "profileDesc": "Kelola informasi profil dan portofolio kamu.",
+    "settingsTitle": "Pengaturan",
+    "settingsDesc": "Konfigurasi akun, notifikasi, dan keamanan.",
+    "language": "Bahasa",
+    "notifications": "Notifikasi"
+  },
+  "auth": {
+    "loginTitle": "Masuk ke ineed",
+    "loginDesc": "Selamat datang kembali! Silakan masuk ke akun kamu.",
+    "email": "Email",
+    "password": "Kata Sandi",
+    "forgotPassword": "Lupa kata sandi?",
+    "loginButton": "Masuk",
+    "orContinueWith": "Atau lanjutkan dengan",
+    "google": "Google",
+    "github": "GitHub",
+    "noAccount": "Belum punya akun?",
+    "signUp": "Daftar"
+  }
+}

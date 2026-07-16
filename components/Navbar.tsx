@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { List, X } from "lucide-react";
 
 const navLinks = [
@@ -19,9 +20,14 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-10">
             <Link href="/" className="flex items-center gap-2.5 cursor-pointer">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
-                <span className="text-sm font-extrabold text-on-primary">F</span>
-              </div>
+              <Image
+                src="/logo-ineed.jpg"
+                alt="ineed"
+                width={36}
+                height={36}
+                className="h-9 w-9 rounded-xl object-cover"
+                priority
+              />
               <span className="text-lg font-extrabold tracking-tight text-foreground">
                 ineed
               </span>

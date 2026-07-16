@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { CampaignBanner } from "@/components/CampaignBanner";
 import { ContentTabs } from "@/components/ContentTabs";
+import Image from "next/image";
 import { Shield, Clock, CreditCard, HeadphonesIcon } from "lucide-react";
 
 const trustFeatures = [
@@ -98,9 +99,13 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary">
-                <span className="text-xs font-extrabold text-on-primary">F</span>
-              </div>
+              <Image
+                src="/logo-ineed.jpg"
+                alt="ineed"
+                width={28}
+                height={28}
+                className="h-7 w-7 rounded-lg object-cover"
+              />
               <span className="text-sm font-extrabold text-foreground">
                 ineed
               </span>

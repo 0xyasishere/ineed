@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { I18nProvider } from "@/lib/i18n";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ineed – Whatever you need, we've got the talent.",
   description:
     "Connect with skilled professionals for web development, design, marketing, and more.",
+  icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({
@@ -13,8 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="id" className="h-full antialiased" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col">
+        <I18nProvider>{children}</I18nProvider>
+      </body>
     </html>
   );
 }
