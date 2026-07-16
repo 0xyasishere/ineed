@@ -2,6 +2,7 @@
 
 import { useI18n } from "@/lib/i18n";
 import { Wallet, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const transactions = [
   { id: "1", description: "Payment from TechCorp Inc.", amount: "+$500", type: "income", date: "16 Jul 2026" },
@@ -15,38 +16,66 @@ export default function EarningsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-extrabold text-foreground">{t.dashboard.earningsTitle}</h1>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <h1 className="text-2xl font-manga text-foreground">💰 {t.dashboard.earningsTitle}</h1>
         <p className="mt-1 text-sm text-foreground/50">{t.dashboard.earningsDesc}</p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="rounded-2xl bg-white border border-border p-5">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.3 }}
+          className="manga-panel bg-white p-5"
+        >
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
             <Wallet size={20} className="text-emerald-600" />
           </div>
           <p className="mt-4 text-2xl font-extrabold text-foreground">$4,280</p>
           <p className="mt-1 text-xs font-semibold text-foreground/50">{t.dashboard.totalEarnings}</p>
-        </div>
-        <div className="rounded-2xl bg-white border border-border p-5">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.3, delay: 0.05 }}
+          className="manga-panel bg-white p-5"
+        >
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
             <ArrowUpRight size={20} className="text-primary" />
           </div>
           <p className="mt-4 text-2xl font-extrabold text-foreground">$3,800</p>
           <p className="mt-1 text-xs font-semibold text-foreground/50">This Month</p>
-        </div>
-        <div className="rounded-2xl bg-white border border-border p-5">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+          className="manga-panel bg-white p-5"
+        >
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
             <ArrowDownRight size={20} className="text-amber-600" />
           </div>
           <p className="mt-4 text-2xl font-extrabold text-foreground">$480</p>
           <p className="mt-1 text-xs font-semibold text-foreground/50">Pending</p>
-        </div>
+        </motion.div>
       </div>
 
-      <div className="rounded-2xl bg-white border border-border overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="manga-panel bg-white overflow-hidden"
+      >
         <div className="px-5 py-4 border-b border-border">
-          <h3 className="text-sm font-extrabold text-foreground">Recent Transactions</h3>
+          <h3 className="text-sm font-extrabold text-foreground">📊 Recent Transactions</h3>
         </div>
         {transactions.map((tx) => (
           <div key={tx.id} className="flex items-center justify-between px-5 py-4 border-b border-border last:border-0 hover:bg-muted/50 transition-colors">
@@ -59,7 +88,7 @@ export default function EarningsPage() {
             </span>
           </div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

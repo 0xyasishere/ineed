@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
+import { motion } from "framer-motion";
 
 const conversations = [
   { id: "1", name: "Sarah Chen", lastMessage: "I can start the project next week", time: "5m", unread: 2, avatar: "SC" },
@@ -14,15 +15,29 @@ export default function MessagesPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-extrabold text-foreground">{t.dashboard.messagesTitle}</h1>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <h1 className="text-2xl font-manga text-foreground">💬 {t.dashboard.messagesTitle}</h1>
         <p className="mt-1 text-sm text-foreground/50">{t.dashboard.messagesDesc}</p>
-      </div>
+      </motion.div>
 
-      <div className="rounded-2xl bg-white border border-border overflow-hidden">
-        {conversations.map((c) => (
-          <div
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="manga-panel bg-white overflow-hidden"
+      >
+        {conversations.map((c, i) => (
+          <motion.div
             key={c.id}
+            initial={{ opacity: 0, x: -15 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.25, delay: i * 0.05 }}
             className="flex items-center gap-4 px-5 py-4 border-b border-border last:border-0 hover:bg-muted/50 transition-colors cursor-pointer"
           >
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
@@ -40,9 +55,9 @@ export default function MessagesPage() {
                 {c.unread}
               </span>
             )}
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

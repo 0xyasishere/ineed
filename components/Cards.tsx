@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import {
   Star,
   Clock,
@@ -15,24 +18,28 @@ const categoryGradients: Record<string, string> = {
   Copywriting: "from-emerald-400 to-teal-500",
   "Mobile Apps": "from-violet-500 to-purple-600",
   Marketing: "from-cyan-400 to-sky-500",
+  "Content Writing": "from-emerald-400 to-teal-500",
+  "Data Engineering": "from-violet-500 to-purple-600",
+  DevOps: "from-cyan-400 to-sky-500",
 };
 
 export function ServiceGridCard({ service }: { service: Service }) {
-  const gradient =
-    categoryGradients[service.category] || "from-gray-400 to-gray-500";
+  const gradient = categoryGradients[service.category] || "from-gray-400 to-gray-500";
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl bg-white border border-border shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30 cursor-pointer">
-      <div
-        className={`relative aspect-[16/10] bg-gradient-to-br ${gradient} p-6 flex flex-col justify-end`}
-      >
-        <span className="absolute top-3 left-3 inline-flex items-center rounded-full bg-white/20 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-white">
+    <motion.article
+      whileHover={{ scale: 1.03, y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="group flex flex-col overflow-hidden manga-panel bg-white cursor-pointer"
+    >
+      <div className={`relative aspect-[16/10] bg-gradient-to-br ${gradient} p-6 flex flex-col justify-end`}>
+        <span className="absolute top-3 left-3 inline-flex items-center manga-outline-sm bg-white/20 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-white">
           {service.category}
         </span>
-        <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-white/20 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-white">
+        <span className="absolute top-3 right-3 inline-flex items-center gap-1 manga-outline-sm bg-white/20 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-white">
           <Star size={10} fill="currentColor" /> {service.freelancer.rating}
         </span>
-        <div className="relative z-10 flex items-center gap-1.5 text-[11px] font-bold text-white/70">
+        <div className="relative z-10 flex items-center gap-1.5 text-[11px] font-bold text-white/80">
           <Clock size={10} />
           {service.deliveryDays} day delivery
         </div>
@@ -49,7 +56,7 @@ export function ServiceGridCard({ service }: { service: Service }) {
         <div className="mt-auto pt-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-[10px] font-extrabold text-primary">
+              <div className="flex h-8 w-8 items-center justify-center manga-outline-sm bg-primary/10 text-[10px] font-extrabold text-primary">
                 {service.freelancer.name
                   .split(" ")
                   .map((n) => n[0])
@@ -62,47 +69,38 @@ export function ServiceGridCard({ service }: { service: Service }) {
                 <p className="text-[10px] text-foreground/40">Seller</p>
               </div>
             </div>
-            <span className="text-xl font-extrabold text-foreground">
-              {service.currency}
-              {service.price}
+            <span className="text-xl font-manga text-foreground tracking-wide" style={{ textShadow: "1px 1px 0 #E63946" }}>
+              {service.currency}{service.price}
             </span>
           </div>
         </div>
 
-        <button className="mt-4 w-full rounded-xl bg-muted py-3 text-xs font-bold text-primary transition-all duration-200 hover:bg-primary hover:text-white cursor-pointer flex items-center justify-center gap-1.5">
+        <button className="mt-4 w-full manga-outline-sm bg-muted py-3 text-xs font-bold text-primary transition-all duration-200 hover:bg-primary hover:text-white cursor-pointer flex items-center justify-center gap-1.5">
           View Details
           <ChevronRight size={12} />
         </button>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
 export function JobGridCard({ job }: { job: Job }) {
-  const categoryGradients: Record<string, string> = {
-    "Web Development": "from-blue-500 to-indigo-600",
-    "UI/UX Design": "from-pink-400 to-rose-500",
-    "Content Writing": "from-emerald-400 to-teal-500",
-    "Data Engineering": "from-violet-500 to-purple-600",
-    Branding: "from-amber-400 to-orange-500",
-    DevOps: "from-cyan-400 to-sky-500",
-  };
-
-  const gradient =
-    categoryGradients[job.category] || "from-gray-400 to-gray-500";
+  const gradient = categoryGradients[job.category] || "from-gray-400 to-gray-500";
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl bg-white border border-border shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30 cursor-pointer">
-      <div
-        className={`relative aspect-[16/10] bg-gradient-to-br ${gradient} p-6 flex flex-col justify-end`}
-      >
-        <span className="absolute top-3 left-3 inline-flex items-center rounded-full bg-white/20 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-white">
+    <motion.article
+      whileHover={{ scale: 1.03, y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="group flex flex-col overflow-hidden manga-panel bg-white cursor-pointer"
+    >
+      <div className={`relative aspect-[16/10] bg-gradient-to-br ${gradient} p-6 flex flex-col justify-end`}>
+        <span className="absolute top-3 left-3 inline-flex items-center manga-outline-sm bg-white/20 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-white">
           {job.category}
         </span>
-        <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-accent/80 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-white">
+        <span className="absolute top-3 right-3 inline-flex items-center gap-1 manga-outline-sm bg-accent/90 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-white">
           <BadgeCheck size={10} /> Open
         </span>
-        <div className="relative z-10 flex items-center gap-2 text-[11px] font-bold text-white/70">
+        <div className="relative z-10 flex items-center gap-2 text-[11px] font-bold text-white/80">
           <Clock size={10} />
           {job.postedAt}
           <span>·</span>
@@ -123,7 +121,7 @@ export function JobGridCard({ job }: { job: Job }) {
           {job.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-lg bg-muted px-2.5 py-1 text-[10px] font-bold text-primary/80"
+              className="manga-outline-sm bg-muted px-2.5 py-1 text-[10px] font-bold text-primary/80"
             >
               {tag}
             </span>
@@ -138,18 +136,17 @@ export function JobGridCard({ job }: { job: Job }) {
                 {job.postedBy}
               </span>
             </div>
-            <span className="text-xl font-extrabold text-foreground">
-              {job.currency}
-              {job.budget.toLocaleString()}
+            <span className="text-xl font-manga text-foreground tracking-wide" style={{ textShadow: "1px 1px 0 #E63946" }}>
+              {job.currency}{job.budget.toLocaleString()}
             </span>
           </div>
         </div>
 
-        <button className="mt-4 w-full rounded-xl bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 cursor-pointer flex items-center justify-center gap-1.5">
-          Apply Now
+        <button className="mt-4 w-full manga-outline-sm bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-foreground)] cursor-pointer flex items-center justify-center gap-1.5">
+          Apply Now ⚡
           <ChevronRight size={12} />
         </button>
       </div>
-    </article>
+    </motion.article>
   );
 }

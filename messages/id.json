@@ -14,6 +14,7 @@
     "title2": "ahlinya.",
     "subtitle": "Temukan profesional berbakat, posting proyek, dan selesaikan pekerjaan — semuanya di satu tempat.",
     "searchPlaceholder": "Cari layanan, keahlian, atau lowongan...",
+    "search": "Cari",
     "popular": "Populer:"
   },
   "campaign": {
@@ -21,7 +22,8 @@
   },
   "tabs": {
     "services": "Jelajahi Layanan",
-    "jobs": "Peluang Kerja"
+    "jobs": "Peluang Kerja",
+    "remote": "Remote Jobs"
   },
   "card": {
     "dayDelivery": "hari pengiriman",
@@ -52,6 +54,10 @@
     "terms": "Syarat",
     "privacy": "Privasi",
     "help": "Bantuan"
+  },
+  "umkm": {
+    "subtitle": "Bisnis naik level! Bergabung dan naikkan level bisnismu bersama ineed.",
+    "cta": "Gabung Sekarang"
   },
   "dashboard": {
     "overview": "Ringkasan",

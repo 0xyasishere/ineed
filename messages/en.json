@@ -14,6 +14,7 @@
     "title2": "the talent.",
     "subtitle": "Discover talented professionals, post projects, and get work done — all in one place.",
     "searchPlaceholder": "Search services, skills, or jobs...",
+    "search": "Search",
     "popular": "Popular:"
   },
   "campaign": {
@@ -21,7 +22,8 @@
   },
   "tabs": {
     "services": "Browse Services",
-    "jobs": "Job Opportunities"
+    "jobs": "Job Opportunities",
+    "remote": "Remote Jobs"
   },
   "card": {
     "dayDelivery": "day delivery",
@@ -52,6 +54,10 @@
     "terms": "Terms",
     "privacy": "Privacy",
     "help": "Help"
+  },
+  "umkm": {
+    "subtitle": "Level up your business! Join and boost your business with ineed.",
+    "cta": "Join Now"
   },
   "dashboard": {
     "overview": "Overview",

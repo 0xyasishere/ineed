@@ -2,6 +2,7 @@
 
 import { useI18n } from "@/lib/i18n";
 import { Plus, Megaphone } from "lucide-react";
+import { motion } from "framer-motion";
 
 const campaigns = [
   { id: "1", name: "Spring Freelance Fest", discount: "20%", status: "active", startDate: "1 Jul", endDate: "31 Jul", views: 1240 },
@@ -14,20 +15,32 @@ export default function CampaignsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+      >
         <div>
-          <h1 className="text-2xl font-extrabold text-foreground">{t.dashboard.campaignsTitle}</h1>
+          <h1 className="text-2xl font-manga text-foreground">📣 {t.dashboard.campaignsTitle}</h1>
           <p className="mt-1 text-sm text-foreground/50">{t.dashboard.campaignsDesc}</p>
         </div>
-        <button className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg cursor-pointer self-start">
+        <button className="inline-flex items-center gap-2 manga-outline-sm bg-primary px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg cursor-pointer self-start">
           <Plus size={16} />
           New Campaign
         </button>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {campaigns.map((c) => (
-          <div key={c.id} className="rounded-2xl bg-white border border-border p-5 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 cursor-pointer">
+        {campaigns.map((c, i) => (
+          <motion.div
+            key={c.id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3, delay: i * 0.05 }}
+            className="manga-panel bg-white p-5 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 cursor-pointer"
+          >
             <div className="flex items-start justify-between">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
                 <Megaphone size={20} className="text-primary" />
@@ -44,7 +57,7 @@ export default function CampaignsPage() {
               <span className="text-lg font-extrabold text-primary">{c.discount} OFF</span>
               <span className="text-[11px] font-semibold text-foreground/40">{c.views} views</span>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

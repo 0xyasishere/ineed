@@ -2,6 +2,7 @@
 
 import { useI18n } from "@/lib/i18n";
 import { Plus, Search, Filter } from "lucide-react";
+import { motion } from "framer-motion";
 
 const posts = [
   { id: "1", title: "Landing Page SaaS Modern", category: "Web Development", price: "$299", status: "active", views: 142, applications: 8 },
@@ -16,19 +17,29 @@ export default function MyPostsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+      >
         <div>
-          <h1 className="text-2xl font-extrabold text-foreground">{t.dashboard.myPostsTitle}</h1>
+          <h1 className="text-2xl font-manga text-foreground">📋 {t.dashboard.myPostsTitle}</h1>
           <p className="mt-1 text-sm text-foreground/50">{t.dashboard.myPostsDesc}</p>
         </div>
-        <button className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg cursor-pointer self-start">
+        <button className="inline-flex items-center gap-2 manga-outline-sm bg-primary px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg cursor-pointer self-start">
           <Plus size={16} />
           {t.dashboard.postINeed}
         </button>
-      </div>
+      </motion.div>
 
-      <div className="flex items-center gap-3">
-        <div className="flex-1 flex items-center gap-2 rounded-xl bg-white border border-border px-4 py-2.5">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+        className="flex items-center gap-3"
+      >
+        <div className="flex-1 flex items-center gap-2 manga-outline bg-white px-4 py-2.5">
           <Search size={16} className="text-foreground/40" />
           <input
             type="text"
@@ -36,17 +47,21 @@ export default function MyPostsPage() {
             className="flex-1 bg-transparent text-sm text-foreground placeholder-foreground/40 outline-none"
           />
         </div>
-        <button className="inline-flex items-center gap-2 rounded-xl bg-white border border-border px-4 py-2.5 text-sm font-semibold text-foreground/60 transition-colors hover:bg-muted cursor-pointer">
+        <button className="inline-flex items-center gap-2 manga-outline bg-white px-4 py-2.5 text-sm font-semibold text-foreground/60 transition-colors hover:bg-muted cursor-pointer">
           <Filter size={14} />
           Filter
         </button>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {posts.map((post) => (
-          <div
+        {posts.map((post, i) => (
+          <motion.div
             key={post.id}
-            className="rounded-2xl bg-white border border-border p-5 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 cursor-pointer"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3, delay: i * 0.05 }}
+            className="manga-panel bg-white p-5 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 cursor-pointer"
           >
             <div className="flex items-start justify-between">
               <h3 className="text-sm font-bold text-foreground">{post.title}</h3>
@@ -72,7 +87,7 @@ export default function MyPostsPage() {
                 <span>{post.applications} apps</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

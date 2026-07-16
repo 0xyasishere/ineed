@@ -1,33 +1,31 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { CampaignSlide } from "@/types/service";
 
 const slides: CampaignSlide[] = [
   {
     id: "1",
-    title: "New: Verified Seller Program",
-    subtitle:
-      "Apply now to earn a verified badge and stand out to clients. Limited spots available.",
+    title: "New Arc: Verified Seller Program!",
+    subtitle: "Apply now to earn a verified badge and stand out to clients. Limited spots available!",
     accent: "bg-primary",
-    icon: "✦",
+    icon: "⚔️",
   },
   {
     id: "2",
-    title: "Spring Freelance Fest",
-    subtitle:
-      "Post a job this week and get 20% off your next service purchase. Ends Sunday.",
-    accent: "bg-amber-500",
-    icon: "⚡",
+    title: "UMKM Special Event!",
+    subtitle: "Bisnis naik level! Post a job this week and get 20% off your next service purchase.",
+    accent: "bg-accent",
+    icon: "🔥",
   },
   {
     id: "3",
-    title: "Featured: Top AI & ML Experts",
-    subtitle:
-      "Browse our curated list of machine learning engineers and data scientists ready to hire.",
-    accent: "bg-cyan-500",
-    icon: "◆",
+    title: "Top AI & ML Experts!",
+    subtitle: "Browse our curated list of machine learning engineers and data scientists ready to hire.",
+    accent: "bg-secondary",
+    icon: "💎",
   },
 ];
 
@@ -51,30 +49,55 @@ export function CampaignBanner() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">
-      <div className="relative overflow-hidden rounded-3xl bg-foreground p-8 sm:p-10 transition-all duration-500">
-        <div className="relative z-10 max-w-xl">
-          <span className="inline-block text-3xl mb-3">{slide.icon}</span>
-          <h2 className="text-xl sm:text-2xl font-extrabold text-white">
-            {slide.title}
-          </h2>
-          <p className="mt-2 text-sm leading-relaxed text-white/70">
-            {slide.subtitle}
-          </p>
-          <button className="mt-5 inline-flex items-center gap-2 rounded-xl bg-white/10 backdrop-blur-sm px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:bg-white/20 cursor-pointer">
-            Learn More
-            <ArrowUpRight size={14} />
-          </button>
+      <div className="relative overflow-hidden manga-panel bg-secondary p-8 sm:p-10">
+        {/* Speed lines overlay */}
+        <div className="absolute inset-0 pointer-events-none">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute h-px bg-white/10"
+              style={{
+                width: `${50 + Math.random() * 50}%`,
+                top: `${8 + i * 8}%`,
+                left: `${Math.random() * 30}%`,
+                transform: `rotate(${-1 + Math.random() * 2}deg)`,
+              }}
+            />
+          ))}
         </div>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={slide.id}
+            initial={{ opacity: 0, x: 50, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: -50, scale: 0.95 }}
+            transition={{ duration: 0.4, type: "spring" }}
+            className="relative z-10 max-w-xl"
+          >
+            <span className="inline-block text-4xl mb-3">{slide.icon}</span>
+            <h2 className="text-xl sm:text-2xl font-manga tracking-wide text-white" style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.3)" }}>
+              {slide.title}
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-white/80 font-medium">
+              {slide.subtitle}
+            </p>
+            <button className="mt-5 inline-flex items-center gap-2 manga-outline-sm bg-white/10 backdrop-blur-sm px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:bg-white/20 hover:shadow-[4px_4px_0_rgba(255,255,255,0.2)] cursor-pointer">
+              Learn More
+              <ArrowUpRight size={14} />
+            </button>
+          </motion.div>
+        </AnimatePresence>
 
         <button
           onClick={prev}
-          className="absolute left-3 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 cursor-pointer"
+          className="absolute left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center manga-outline-sm bg-white/10 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 cursor-pointer"
         >
           <ArrowLeft size={16} />
         </button>
         <button
           onClick={next}
-          className="absolute right-3 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 cursor-pointer"
+          className="absolute right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center manga-outline-sm bg-white/10 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 cursor-pointer"
         >
           <ArrowRight size={16} />
         </button>
@@ -84,8 +107,8 @@ export function CampaignBanner() {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                i === current ? "w-6 bg-white" : "w-1.5 bg-white/30"
+              className={`h-2 rounded-full transition-all duration-300 cursor-pointer border border-white/30 ${
+                i === current ? "w-8 bg-white" : "w-2 bg-white/30"
               }`}
             />
           ))}
