@@ -13,6 +13,7 @@ import {
   MegaphoneIcon,
   UserIcon,
   SettingsIcon,
+  PlusIcon,
   ChevronLeftIcon,
   LogOutIcon,
 } from "@/components/icons";
@@ -22,14 +23,15 @@ export function Sidebar() {
   const { t } = useI18n();
 
   const links = [
-    { label: t.dashboard.overview, href: "/dashboard", icon: LayoutDashboardIcon, emoji: "📊" },
-    { label: t.dashboard.myPosts, href: "/dashboard/my-posts", icon: FileTextIcon, emoji: "📝" },
-    { label: t.dashboard.proposals, href: "/dashboard/proposals", icon: SendIcon, emoji: "💌" },
-    { label: t.dashboard.messages, href: "/dashboard/messages", icon: MessageIcon, emoji: "💬" },
-    { label: t.dashboard.earnings, href: "/dashboard/earnings", icon: WalletIcon, emoji: "💰" },
-    { label: t.dashboard.campaigns, href: "/dashboard/campaigns", icon: MegaphoneIcon, emoji: "📢" },
-    { label: t.dashboard.profile, href: "/dashboard/profile", icon: UserIcon, emoji: "👤" },
-    { label: t.dashboard.settings, href: "/dashboard/settings", icon: SettingsIcon, emoji: "⚙️" },
+    { label: t.dashboard.overview, href: "/dashboard", icon: LayoutDashboardIcon },
+    { label: t.dashboard.postINeed, href: "/dashboard/post", icon: PlusIcon },
+    { label: t.dashboard.myPosts, href: "/dashboard/my-posts", icon: FileTextIcon },
+    { label: t.dashboard.proposals, href: "/dashboard/proposals", icon: SendIcon },
+    { label: t.dashboard.messages, href: "/dashboard/messages", icon: MessageIcon },
+    { label: t.dashboard.earnings, href: "/dashboard/earnings", icon: WalletIcon },
+    { label: t.dashboard.campaigns, href: "/dashboard/campaigns", icon: MegaphoneIcon },
+    { label: t.dashboard.profile, href: "/dashboard/profile", icon: UserIcon },
+    { label: t.dashboard.settings, href: "/dashboard/settings", icon: SettingsIcon },
   ];
 
   return (
