@@ -34,13 +34,12 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, type: "spring" }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-manga tracking-wide text-foreground leading-[1.1]"
-            style={{ textShadow: "4px 4px 0 var(--color-secondary)" }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-manga tracking-wide leading-[1.1]"
           >
-            <span className="text-primary">{t.hero.title1}</span>
+            <span className="text-primary" style={{ textShadow: "3px 3px 0 rgba(45,138,86,0.2)" }}>{t.hero.title1}</span>
             <br />
-            <span className="text-secondary">{t.hero.titleHighlight}</span>{" "}
-            {t.hero.title2}
+            <span className="text-secondary" style={{ textShadow: "3px 3px 0 rgba(15,36,48,0.15)" }}>{t.hero.titleHighlight}</span>{" "}
+            <span className="text-foreground" style={{ textShadow: "3px 3px 0 rgba(45,138,86,0.15)" }}>{t.hero.title2}</span>
           </motion.h1>
 
           <motion.p
