@@ -1,4 +1,3 @@
 {
-  "installCommand": "npx npm@10.9.2 install --ignore-scripts",
   "framework": "nextjs"
 }
