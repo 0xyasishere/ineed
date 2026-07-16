@@ -128,5 +128,19 @@
     "signUp": "Sign Up",
     "checkEmail": "Check your email!",
     "checkEmailDesc": "We sent a confirmation link to verify your account."
+  },
+  "search": {
+    "placeholder": "Search services, jobs, categories...",
+    "noResults": "No results found",
+    "tryDifferent": "Try a different search or category"
+  },
+  "myPosts": {
+    "title": "My Posts",
+    "subtitle": "Manage all your services and job posts.",
+    "all": "All",
+    "empty": "No posts yet",
+    "noServices": "No services posted",
+    "noJobs": "No jobs posted",
+    "emptyHint": "Head to \"Post I Need\" to create your first listing!"
   }
 }

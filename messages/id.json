@@ -128,5 +128,19 @@
     "signUp": "Daftar",
     "checkEmail": "Cek email kamu!",
     "checkEmailDesc": "Kami sudah mengirim link konfirmasi untuk verifikasi akun kamu."
+  },
+  "search": {
+    "placeholder": "Cari layanan, pekerjaan, kategori...",
+    "noResults": "Tidak ada hasil ditemukan",
+    "tryDifferent": "Coba kata kunci atau kategori lain"
+  },
+  "myPosts": {
+    "title": "Postinganku",
+    "subtitle": "Kelola semua layanan dan postingan pekerjaan kamu.",
+    "all": "Semua",
+    "empty": "Belum ada postingan",
+    "noServices": "Belum ada layanan",
+    "noJobs": "Belum ada pekerjaan",
+    "emptyHint": "Klik \"Post I Need\" untuk buat listingan pertama!"
   }
 }

@@ -16,6 +16,9 @@ export {
   EyeIcon,
   EyeOffIcon,
   CameraIcon,
+  TrashIcon,
+  TagIcon,
+  DollarIcon,
   LogOutIcon,
 } from "./ui";
 
