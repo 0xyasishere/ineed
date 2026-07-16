@@ -66,7 +66,7 @@ export function HeroSection() {
               placeholder={t.hero.searchPlaceholder}
               className="flex-1 bg-transparent py-3.5 text-sm font-medium text-foreground placeholder-foreground/40 outline-none"
             />
-            <button className="shrink-0 manga-outline-sm bg-primary px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-foreground)] cursor-pointer">
+            <button className="shrink-0 manga-outline-sm bg-primary px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-primary)] cursor-pointer">
               ⚡ {t.hero.search || "Search"}
             </button>
           </div>

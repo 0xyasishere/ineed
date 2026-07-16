@@ -69,7 +69,7 @@ export function Navbar() {
             </a>
             <a
               href="#"
-              className="manga-outline-sm bg-primary px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-foreground)] cursor-pointer"
+              className="manga-outline-sm bg-primary px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-primary)] cursor-pointer"
             >
               {t.nav.getStarted} ⚡
             </a>

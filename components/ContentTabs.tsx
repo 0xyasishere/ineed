@@ -65,7 +65,7 @@ export function ContentTabs() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-bold transition-all duration-200 cursor-pointer ${
                 activeTab === tab.id
-                  ? "bg-white text-primary shadow-[3px_3px_0_var(--color-foreground)] border-2 border-foreground"
+                  ? "bg-white text-primary shadow-[3px_3px_0_var(--color-primary)] border-2 border-foreground"
                   : "text-foreground/65 hover:text-foreground/70 border-2 border-transparent"
               }`}
             >

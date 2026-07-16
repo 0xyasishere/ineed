@@ -59,24 +59,24 @@ html {
   border: 3px solid var(--color-border);
   border-radius: 4px;
   position: relative;
-  box-shadow: 4px 4px 0 var(--color-border);
+  box-shadow: 4px 4px 0 var(--color-primary);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .manga-panel:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--color-border);
+  box-shadow: 6px 6px 0 var(--color-primary);
 }
 
 /* Manga thick outline */
 .manga-outline {
   border: 3px solid var(--color-border);
-  box-shadow: 3px 3px 0 var(--color-border);
+  box-shadow: 3px 3px 0 var(--color-primary);
 }
 
 .manga-outline-sm {
   border: 2px solid var(--color-border);
-  box-shadow: 2px 2px 0 var(--color-border);
+  box-shadow: 2px 2px 0 var(--color-primary);
 }
 
 /* Speech bubble */
@@ -86,7 +86,7 @@ html {
   border: 3px solid var(--color-border);
   border-radius: 20px;
   padding: 1.5rem;
-  box-shadow: 4px 4px 0 var(--color-border);
+  box-shadow: 4px 4px 0 var(--color-primary);
 }
 
 .speech-bubble::after {
@@ -98,7 +98,7 @@ html {
   height: 0;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-top: 16px solid var(--color-border);
+  border-top: 16px solid var(--color-primary);
 }
 
 .speech-bubble::before {

@@ -150,13 +150,13 @@ export function JobGridCard({ job }: { job: Job }) {
             href={job.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 w-full manga-outline-sm bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-foreground)] cursor-pointer flex items-center justify-center gap-1.5"
+            className="mt-4 w-full manga-outline-sm bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-primary)] cursor-pointer flex items-center justify-center gap-1.5"
           >
             {t.card.applyNow} ⚡
             <ChevronRight size={12} />
           </a>
         ) : (
-          <button className="mt-4 w-full manga-outline-sm bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-foreground)] cursor-pointer flex items-center justify-center gap-1.5">
+          <button className="mt-4 w-full manga-outline-sm bg-primary py-3 text-xs font-bold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-[4px_4px_0_var(--color-primary)] cursor-pointer flex items-center justify-center gap-1.5">
             {t.card.applyNow} ⚡
             <ChevronRight size={12} />
           </button>
