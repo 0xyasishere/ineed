@@ -10,7 +10,7 @@ export function TopNavbar() {
     <header className="flex h-16 items-center gap-4 border-b-[3px] border-foreground bg-white px-6">
       <div className="flex-1 max-w-md">
         <div className="flex items-center gap-2 manga-outline bg-muted px-4 py-2">
-          <Search size={16} className="text-foreground/40" />
+          <Search size={16} className="text-foreground/55" />
           <input
             type="text"
             placeholder={t.dashboard.searchPlaceholder}

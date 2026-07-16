@@ -22,7 +22,7 @@ export function Footer() {
               ineed
             </span>
           </div>
-          <div className="flex items-center gap-6 text-xs font-bold text-foreground/40">
+          <div className="flex items-center gap-6 text-xs font-bold text-foreground/55">
             <a href="#" className="hover:text-primary transition-colors cursor-pointer">
               {t.footer.terms}
             </a>

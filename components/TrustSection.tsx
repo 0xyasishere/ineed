@@ -27,7 +27,7 @@ export function TrustSection() {
         <h2 className="text-3xl sm:text-4xl font-manga tracking-wide text-foreground" style={{ textShadow: "3px 3px 0 var(--color-border)" }}>
           {t.trust.title}
         </h2>
-        <p className="mt-3 text-foreground/50 text-sm max-w-md mx-auto font-medium">
+        <p className="mt-3 text-foreground/60 text-sm max-w-md mx-auto font-medium">
           {t.trust.subtitle}
         </p>
       </motion.div>
@@ -51,7 +51,7 @@ export function TrustSection() {
               <h3 className="text-sm font-bold text-foreground">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-xs text-foreground/50 leading-relaxed font-medium">
+              <p className="mt-2 text-xs text-foreground/60 leading-relaxed font-medium">
                 {feature.desc}
               </p>
             </motion.div>

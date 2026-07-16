@@ -49,7 +49,7 @@ export function ServiceGridCard({ service }: { service: Service }) {
         <h3 className="text-sm font-bold leading-snug text-foreground line-clamp-2 group-hover:text-primary transition-colors duration-200">
           {service.title}
         </h3>
-        <p className="mt-2 text-xs leading-relaxed text-foreground/50 line-clamp-2">
+        <p className="mt-2 text-xs leading-relaxed text-foreground/65 line-clamp-2">
           {service.description}
         </p>
 
@@ -66,7 +66,7 @@ export function ServiceGridCard({ service }: { service: Service }) {
                 <p className="text-xs font-bold text-foreground">
                   {service.freelancer.name}
                 </p>
-                <p className="text-[10px] text-foreground/40">Seller</p>
+                <p className="text-[10px] text-foreground/55">Seller</p>
               </div>
             </div>
             <span className="text-xl font-manga text-foreground tracking-wide" style={{ textShadow: "1px 1px 0 var(--color-primary)" }}>
@@ -113,7 +113,7 @@ export function JobGridCard({ job }: { job: Job }) {
         <h3 className="text-sm font-bold leading-snug text-foreground line-clamp-2 group-hover:text-primary transition-colors duration-200">
           {job.title}
         </h3>
-        <p className="mt-2 text-xs leading-relaxed text-foreground/50 line-clamp-2">
+        <p className="mt-2 text-xs leading-relaxed text-foreground/65 line-clamp-2">
           {job.description}
         </p>
 
@@ -131,7 +131,7 @@ export function JobGridCard({ job }: { job: Job }) {
         <div className="mt-auto pt-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
-              <Briefcase size={12} className="text-foreground/40" />
+              <Briefcase size={12} className="text-foreground/55" />
               <span className="text-xs font-bold text-foreground/60">
                 {job.postedBy}
               </span>

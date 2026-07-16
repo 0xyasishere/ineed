@@ -60,7 +60,7 @@ export function HeroSection() {
           className="mt-10 max-w-2xl"
         >
           <div className="flex items-center gap-2 manga-outline bg-white p-2 pl-5 transition-all duration-300 focus-within:border-primary focus-within:shadow-[6px_6px_0_var(--color-primary)]">
-            <Search size={20} className="shrink-0 text-foreground/40" />
+            <Search size={20} className="shrink-0 text-foreground/55" />
             <input
               type="text"
               placeholder={t.hero.searchPlaceholder}
@@ -71,7 +71,7 @@ export function HeroSection() {
             </button>
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-foreground/40 font-bold">
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-foreground/55 font-bold">
             <span>{t.hero.popular}</span>
             {popularSearches.map((tag) => (
               <a
