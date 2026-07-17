@@ -31,10 +31,10 @@ export default function LoginPage() {
     }
   };
 
-  const handleOAuth = async (provider: "google" | "github") => {
+  const handleOAuth = async () => {
     setError("");
     const { error } = await supabase.auth.signInWithOAuth({
-      provider,
+      provider: "google",
       options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
     if (error) setError(error.message);
@@ -134,24 +134,14 @@ export default function LoginPage() {
           <div className="flex-1 h-px bg-border" />
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <motion.button
-            onClick={() => handleOAuth("google")}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="manga-outline bg-white py-3 text-sm font-bold text-foreground/70 transition-colors hover:bg-muted cursor-pointer"
-          >
-            {t.auth.google}
-          </motion.button>
-          <motion.button
-            onClick={() => handleOAuth("github")}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="manga-outline bg-white py-3 text-sm font-bold text-foreground/70 transition-colors hover:bg-muted cursor-pointer"
-          >
-            {t.auth.github}
-          </motion.button>
-        </div>
+        <motion.button
+          onClick={handleOAuth}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full manga-outline bg-white py-3 text-sm font-bold text-foreground/70 transition-colors hover:bg-muted cursor-pointer"
+        >
+          {t.auth.google}
+        </motion.button>
 
         <p className="mt-8 text-center text-sm text-foreground/50">
           {t.auth.noAccount}{" "}
