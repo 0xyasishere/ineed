@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { CameraIcon } from "@/components/icons";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 interface Profile {
   id: string;
@@ -68,8 +69,11 @@ export default function ProfilePage() {
     const { error } = await supabase
       .from("profiles")
       .upsert({ ...profile, id: user.id }, { onConflict: "id" });
-    if (!error) {
+    if (error) {
+      toast.error("Failed to save profile");
+    } else {
       setSaved(true);
+      toast.success("Profile saved successfully!");
       setTimeout(() => setSaved(false), 2000);
     }
     setSaving(false);

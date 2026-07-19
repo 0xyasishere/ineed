@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "@/components/icons";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 import { SpeedLines, HalftoneOverlay } from "@/components/manga/Elements";
 
 export default function LoginPage() {
@@ -22,11 +23,20 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    if (!email || !password) {
+      setError("Please fill in all fields");
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       setError(error.message);
+      toast.error(error.message);
       setLoading(false);
     } else {
+      toast.success("Welcome back!");
       window.location.href = "/dashboard";
     }
   };
@@ -37,7 +47,10 @@ export default function LoginPage() {
       provider: "google",
       options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
-    if (error) setError(error.message);
+    if (error) {
+      setError(error.message);
+      toast.error(error.message);
+    }
   };
 
   return (

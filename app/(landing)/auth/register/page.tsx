@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "@/components/icons";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 import { SpeedLines, HalftoneOverlay } from "@/components/manga/Elements";
 
 export default function RegisterPage() {
@@ -24,6 +25,19 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    if (!name || !email || !password) {
+      setError("Please fill in all fields");
+      setLoading(false);
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -31,8 +45,10 @@ export default function RegisterPage() {
     });
     if (error) {
       setError(error.message);
+      toast.error(error.message);
       setLoading(false);
     } else {
+      toast.success("Account created! Check your email.");
       setSuccess(true);
       setLoading(false);
     }
@@ -44,7 +60,10 @@ export default function RegisterPage() {
       provider,
       options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
-    if (error) setError(error.message);
+    if (error) {
+      setError(error.message);
+      toast.error(error.message);
+    }
   };
 
   if (success) {
@@ -155,6 +174,7 @@ export default function RegisterPage() {
                 {showPassword ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
               </button>
             </div>
+            <p className="mt-1 text-[10px] text-foreground/40">Must be at least 6 characters</p>
           </div>
           <motion.button
             type="submit"

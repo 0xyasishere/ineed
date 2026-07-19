@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
+import { useState } from "react";
 import {
   LayoutDashboardIcon,
   FileTextIcon,
@@ -16,11 +17,14 @@ import {
   PlusIcon,
   ChevronLeftIcon,
   LogOutIcon,
+  MenuIcon,
+  CloseIcon,
 } from "@/components/icons";
 
 export function Sidebar() {
   const pathname = usePathname();
   const { t } = useI18n();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const links = [
     { label: t.dashboard.overview, href: "/dashboard", icon: LayoutDashboardIcon },
@@ -34,8 +38,8 @@ export function Sidebar() {
     { label: t.dashboard.settings, href: "/dashboard/settings", icon: SettingsIcon },
   ];
 
-  return (
-    <aside className="hidden lg:flex lg:w-64 lg:flex-col bg-white border-r-[3px] border-foreground">
+  const SidebarContent = () => (
+    <>
       <div className="flex h-16 items-center gap-2.5 px-6 border-b-[3px] border-foreground bg-primary/5">
         <Image
           src="/images/ineed-logo.jpg"
@@ -63,6 +67,7 @@ export function Sidebar() {
             <Link
               key={link.href}
               href={link.href}
+              onClick={() => setMobileOpen(false)}
               className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold transition-all duration-200 cursor-pointer border-2 ${
                 isActive
                   ? "bg-primary/10 text-primary border-primary/30 shadow-[2px_2px_0_var(--color-primary)]"
@@ -89,6 +94,42 @@ export function Sidebar() {
           {t.dashboard.signOut}
         </button>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Mobile hamburger */}
+      <button
+        onClick={() => setMobileOpen(true)}
+        className="lg:hidden fixed top-4 left-4 z-50 manga-outline-sm bg-white p-2 cursor-pointer"
+      >
+        <MenuIcon size={20} />
+      </button>
+
+      {/* Desktop sidebar */}
+      <aside className="hidden lg:flex lg:w-64 lg:flex-col bg-white border-r-[3px] border-foreground">
+        <SidebarContent />
+      </aside>
+
+      {/* Mobile sidebar overlay */}
+      {mobileOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setMobileOpen(false)}
+          />
+          <aside className="relative w-64 flex flex-col bg-white border-r-[3px] border-foreground">
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="absolute top-4 right-4 z-10 p-1 cursor-pointer"
+            >
+              <CloseIcon size={18} />
+            </button>
+            <SidebarContent />
+          </aside>
+        </div>
+      )}
+    </>
   );
 }
