@@ -6,22 +6,28 @@ import { createClient } from "@/lib/supabase/client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 import { SpeedLines, HalftoneOverlay } from "@/components/manga/Elements";
-import { PlusIcon, CloseIcon } from "@/components/icons";
+import { PlusIcon } from "@/components/icons";
+import { FormField } from "@/components/ui/FormField";
+import { TagInput } from "@/components/ui/TagInput";
+import { serviceSchema, jobSchema, type ServiceFormData, type JobFormData } from "@/lib/validations";
 
 type PostType = "service" | "job";
 
 const categories = [
-  "Web Development",
-  "UI/UX Design",
-  "Mobile Apps",
-  "Branding",
-  "Copywriting",
-  "Marketing",
-  "Content Writing",
-  "Data Engineering",
-  "DevOps",
-  "Other",
+  { value: "Web Development", label: "Web Development" },
+  { value: "UI/UX Design", label: "UI/UX Design" },
+  { value: "Mobile Apps", label: "Mobile Apps" },
+  { value: "Branding", label: "Branding" },
+  { value: "Copywriting", label: "Copywriting" },
+  { value: "Marketing", label: "Marketing" },
+  { value: "Content Writing", label: "Content Writing" },
+  { value: "Data Engineering", label: "Data Engineering" },
+  { value: "DevOps", label: "DevOps" },
+  { value: "Other", label: "Other" },
 ];
 
 export default function PostINeedPage() {
@@ -33,63 +39,84 @@ export default function PostINeedPage() {
   const [success, setSuccess] = useState(false);
   const supabase = createClient();
 
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-    price: "",
-    category: "Web Development",
-    deliveryDays: "7",
-    budget: "",
-    tags: [] as string[],
-    url: "",
+  const serviceForm = useForm<ServiceFormData>({
+    resolver: zodResolver(serviceSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      price: 0,
+      category: "Web Development",
+      deliveryDays: 7,
+    },
   });
 
-  const [newTag, setNewTag] = useState("");
+  const jobForm = useForm<JobFormData>({
+    resolver: zodResolver(jobSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      budget: undefined,
+      category: "Web Development",
+      tags: [],
+      url: "",
+    },
+  });
 
-  const handleChange = (field: string, value: string) => {
-    setForm({ ...form, [field]: value });
-  };
-
-  const addTag = () => {
-    if (newTag.trim() && !form.tags.includes(newTag.trim())) {
-      setForm({ ...form, tags: [...form.tags, newTag.trim()] });
-      setNewTag("");
+  const handleSubmitService = async (data: ServiceFormData) => {
+    if (!user) {
+      toast.error("Please login to post a service");
+      return;
     }
-  };
-
-  const removeTag = (tag: string) => {
-    setForm({ ...form, tags: form.tags.filter((t) => t !== tag) });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user) return;
     setLoading(true);
 
-    if (postType === "service") {
-      const { error } = await supabase.from("services").insert({
-        user_id: user.id,
-        title: form.title,
-        description: form.description,
-        price: parseFloat(form.price) || 0,
-        category: form.category,
-        delivery_days: parseInt(form.deliveryDays) || 7,
-      });
-      if (!error) setSuccess(true);
-    } else {
-      const { error } = await supabase.from("jobs").insert({
-        user_id: user.id,
-        title: form.title,
-        description: form.description,
-        budget: parseFloat(form.budget) || 0,
-        category: form.category,
-        tags: form.tags,
-        url: form.url,
-      });
-      if (!error) setSuccess(true);
-    }
+    const { error } = await supabase.from("services").insert({
+      user_id: user.id,
+      title: data.title,
+      description: data.description,
+      price: data.price,
+      category: data.category,
+      delivery_days: data.deliveryDays,
+    });
 
+    if (error) {
+      toast.error("Failed to post service. Please try again.");
+    } else {
+      toast.success("Service posted successfully!");
+      setSuccess(true);
+    }
     setLoading(false);
+  };
+
+  const handleSubmitJob = async (data: JobFormData) => {
+    if (!user) {
+      toast.error("Please login to post a job");
+      return;
+    }
+    setLoading(true);
+
+    const { error } = await supabase.from("jobs").insert({
+      user_id: user.id,
+      title: data.title,
+      description: data.description,
+      budget: data.budget || 0,
+      category: data.category,
+      tags: data.tags,
+      url: data.url || null,
+    });
+
+    if (error) {
+      toast.error("Failed to post job. Please try again.");
+    } else {
+      toast.success("Job posted successfully!");
+      setSuccess(true);
+    }
+    setLoading(false);
+  };
+
+  const handleTypeSwitch = (type: PostType) => {
+    setPostType(type);
+    serviceForm.reset();
+    jobForm.reset();
   };
 
   if (success) {
@@ -109,7 +136,11 @@ export default function PostINeedPage() {
           </p>
           <div className="mt-6 flex gap-3 justify-center">
             <motion.button
-              onClick={() => { setSuccess(false); setForm({ title: "", description: "", price: "", category: "Web Development", deliveryDays: "7", budget: "", tags: [], url: "" }); }}
+              onClick={() => {
+                setSuccess(false);
+                serviceForm.reset();
+                jobForm.reset();
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="manga-outline-sm bg-primary px-6 py-2.5 text-sm font-bold text-white hover:bg-primary/90 cursor-pointer"
@@ -149,7 +180,7 @@ export default function PostINeedPage() {
         className="flex gap-2"
       >
         <button
-          onClick={() => setPostType("service")}
+          onClick={() => handleTypeSwitch("service")}
           className={`manga-outline-sm px-6 py-3 text-sm font-bold transition-all cursor-pointer ${
             postType === "service"
               ? "bg-primary text-white"
@@ -159,7 +190,7 @@ export default function PostINeedPage() {
           ✨ Offer a Service
         </button>
         <button
-          onClick={() => setPostType("job")}
+          onClick={() => handleTypeSwitch("job")}
           className={`manga-outline-sm px-6 py-3 text-sm font-bold transition-all cursor-pointer ${
             postType === "job"
               ? "bg-primary text-white"
@@ -170,150 +201,144 @@ export default function PostINeedPage() {
         </button>
       </motion.div>
 
-      {/* Form */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.2 }}
-        className="relative overflow-hidden manga-panel bg-white p-6"
-      >
-        <SpeedLines count={8} className="!opacity-[0.03]" />
-        <HalftoneOverlay className="!opacity-[0.02]" />
+      {/* Service Form */}
+      {postType === "service" && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="relative overflow-hidden manga-panel bg-white p-6"
+        >
+          <SpeedLines count={8} className="!opacity-[0.03]" />
+          <HalftoneOverlay className="!opacity-[0.02]" />
 
-        <form onSubmit={handleSubmit} className="relative z-10 space-y-5">
-          <div>
-            <label className="block text-xs font-bold text-foreground/60 mb-1.5">Title</label>
-            <input
-              type="text"
-              value={form.title}
-              onChange={(e) => handleChange("title", e.target.value)}
-              required
-              className="w-full manga-outline bg-white px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition-all focus:border-primary focus:shadow-[3px_3px_0_var(--color-primary)]"
-              placeholder={postType === "service" ? "I will design a modern landing page" : "Need a React developer for e-commerce"}
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-foreground/60 mb-1.5">Description</label>
-            <textarea
-              rows={4}
-              value={form.description}
-              onChange={(e) => handleChange("description", e.target.value)}
-              required
-              className="w-full manga-outline bg-white px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none resize-none transition-all focus:border-primary focus:shadow-[3px_3px_0_var(--color-primary)]"
-              placeholder="Describe what you offer or what you need..."
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-foreground/60 mb-1.5">Category</label>
-              <select
-                value={form.category}
-                onChange={(e) => handleChange("category", e.target.value)}
-                className="w-full manga-outline bg-white px-4 py-3 text-sm text-foreground outline-none transition-all focus:border-primary focus:shadow-[3px_3px_0_var(--color-primary)] cursor-pointer"
-              >
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-            </div>
-
-            {postType === "service" ? (
-              <div>
-                <label className="block text-xs font-bold text-foreground/60 mb-1.5">Price ($)</label>
-                <input
-                  type="number"
-                  value={form.price}
-                  onChange={(e) => handleChange("price", e.target.value)}
-                  required
-                  min="0"
-                  step="0.01"
-                  className="w-full manga-outline bg-white px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition-all focus:border-primary focus:shadow-[3px_3px_0_var(--color-primary)]"
-                  placeholder="0"
-                />
-              </div>
-            ) : (
-              <div>
-                <label className="block text-xs font-bold text-foreground/60 mb-1.5">Budget ($)</label>
-                <input
-                  type="number"
-                  value={form.budget}
-                  onChange={(e) => handleChange("budget", e.target.value)}
-                  min="0"
-                  step="0.01"
-                  className="w-full manga-outline bg-white px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition-all focus:border-primary focus:shadow-[3px_3px_0_var(--color-primary)]"
-                  placeholder="0 (optional)"
-                />
-              </div>
-            )}
-          </div>
-
-          {postType === "service" && (
-            <div>
-              <label className="block text-xs font-bold text-foreground/60 mb-1.5">Delivery Days</label>
-              <input
-                type="number"
-                value={form.deliveryDays}
-                onChange={(e) => handleChange("deliveryDays", e.target.value)}
-                min="1"
-                className="w-full manga-outline bg-white px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition-all focus:border-primary focus:shadow-[3px_3px_0_var(--color-primary)]"
-                placeholder="7"
+          <FormProvider {...serviceForm}>
+            <form onSubmit={serviceForm.handleSubmit(handleSubmitService)} className="relative z-10 space-y-5">
+              <FormField
+                name="title"
+                label="Title"
+                placeholder="I will design a modern landing page"
               />
-            </div>
-          )}
 
-          {postType === "job" && (
-            <>
-              <div>
-                <label className="block text-xs font-bold text-foreground/60 mb-1.5">Tags</label>
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {form.tags.map((tag) => (
-                    <span key={tag} className="inline-flex items-center gap-1 rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
-                      {tag}
-                      <button type="button" onClick={() => removeTag(tag)} className="ml-1 text-primary/50 hover:text-primary cursor-pointer">×</button>
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={newTag}
-                    onChange={(e) => setNewTag(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addTag())}
-                    className="flex-1 manga-outline bg-white px-4 py-2 text-sm text-foreground outline-none transition-all focus:border-primary focus:shadow-[3px_3px_0_var(--color-primary)]"
-                    placeholder="Add a tag..."
-                  />
-                  <button type="button" onClick={addTag} className="manga-outline-sm bg-muted px-4 py-2 text-sm font-bold text-foreground/60 hover:bg-muted/80 cursor-pointer">
-                    + Add
-                  </button>
-                </div>
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-foreground/60 mb-1.5">URL (optional)</label>
-                <input
-                  type="url"
-                  value={form.url}
-                  onChange={(e) => handleChange("url", e.target.value)}
-                  className="w-full manga-outline bg-white px-4 py-3 text-sm text-foreground placeholder-foreground/30 outline-none transition-all focus:border-primary focus:shadow-[3px_3px_0_var(--color-primary)]"
-                  placeholder="https://..."
+              <FormField
+                name="description"
+                label="Description"
+                type="textarea"
+                placeholder="Describe what you offer..."
+              />
+
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  name="category"
+                  label="Category"
+                  type="select"
+                  options={categories}
+                />
+                <FormField
+                  name="price"
+                  label="Price ($)"
+                  type="number"
+                  placeholder="0"
+                  min={1}
+                  max={100000}
                 />
               </div>
-            </>
-          )}
 
-          <motion.button
-            type="submit"
-            disabled={loading}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full manga-outline-sm bg-primary py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
-          >
-            <PlusIcon size={16} />
-            {loading ? "..." : postType === "service" ? "Post Service" : "Post Job"}
-          </motion.button>
-        </form>
-      </motion.div>
+              <FormField
+                name="deliveryDays"
+                label="Delivery Days"
+                type="number"
+                placeholder="7"
+                min={1}
+                max={365}
+              />
+
+              <motion.button
+                type="submit"
+                disabled={loading}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full manga-outline-sm bg-primary py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+              >
+                <PlusIcon size={16} />
+                {loading ? "..." : "Post Service"}
+              </motion.button>
+            </form>
+          </FormProvider>
+        </motion.div>
+      )}
+
+      {/* Job Form */}
+      {postType === "job" && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="relative overflow-hidden manga-panel bg-white p-6"
+        >
+          <SpeedLines count={8} className="!opacity-[0.03]" />
+          <HalftoneOverlay className="!opacity-[0.02]" />
+
+          <FormProvider {...jobForm}>
+            <form onSubmit={jobForm.handleSubmit(handleSubmitJob)} className="relative z-10 space-y-5">
+              <FormField
+                name="title"
+                label="Title"
+                placeholder="Need a React developer for e-commerce"
+              />
+
+              <FormField
+                name="description"
+                label="Description"
+                type="textarea"
+                placeholder="Describe what you need..."
+              />
+
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  name="category"
+                  label="Category"
+                  type="select"
+                  options={categories}
+                />
+                <FormField
+                  name="budget"
+                  label="Budget ($)"
+                  type="number"
+                  placeholder="0 (optional)"
+                  min={0}
+                  max={100000}
+                />
+              </div>
+
+              <TagInput
+                name="tags"
+                label="Tags"
+                placeholder="Add a tag..."
+                maxTags={5}
+              />
+
+              <FormField
+                name="url"
+                label="URL (optional)"
+                type="url"
+                placeholder="https://..."
+              />
+
+              <motion.button
+                type="submit"
+                disabled={loading}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full manga-outline-sm bg-primary py-3 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+              >
+                <PlusIcon size={16} />
+                {loading ? "..." : "Post Job"}
+              </motion.button>
+            </form>
+          </FormProvider>
+        </motion.div>
+      )}
     </div>
   );
 }

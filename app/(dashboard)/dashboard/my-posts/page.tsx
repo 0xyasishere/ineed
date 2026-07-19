@@ -1,51 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/lib/auth";
 import { useI18n } from "@/lib/i18n";
-import { ExternalLinkIcon, TrashIcon, EyeIcon } from "@/components/icons";
-
-interface MyPost {
-  id: string;
-  type: "service" | "job";
-  title: string;
-  description: string;
-  price: number;
-  currency: string;
-  category: string;
-  status: string;
-  tags: string[];
-  url?: string;
-  created_at: string;
-}
-
-const categoryColors: Record<string, string> = {
-  "Web Development": "bg-[#E8F0EA] text-[#2D8A56]",
-  "UI/UX Design": "bg-[#F0E6FA] text-[#7B3FA0]",
-  "Branding": "bg-[#FFF0E6] text-[#D4740E]",
-  "Copywriting": "bg-[#E6F4FA] text-[#0E74D4]",
-  "Marketing": "bg-[#FAF0E6] text-[#D4A00E]",
-  "Data Engineering": "bg-[#F0FAE6] text-[#4DA00E]",
-  "Content Writing": "bg-[#FAE6F0] text-[#D40E74]",
-  "DevOps": "bg-[#E6F0FA] text-[#0E50D4]",
-  "Mobile Apps": "bg-[#F5F0FA] text-[#8B3FA0]",
-  "Community": "bg-[#E8F0EA] text-[#2D8A56]",
-  "Support": "bg-[#FFF0E6] text-[#D4740E]",
-  "Ambassador": "bg-[#E6F4FA] text-[#0E74D4]",
-};
-
-const statusColors: Record<string, string> = {
-  active: "bg-[#E8F0EA] text-[#2D8A56] border-[#2D8A56]",
-  draft: "bg-foreground/5 text-foreground/50 border-foreground/20",
-  closed: "bg-red-50 text-red-500 border-red-300",
-};
-
-const statusLabels: Record<string, Record<string, string>> = {
-  id: { active: "Aktif", draft: "Draft", closed: "Tutup" },
-  en: { active: "Active", draft: "Draft", closed: "Closed" },
-};
+import { toast } from "sonner";
+import { DataTable } from "@/components/ui/DataTable";
+import { myPostColumns, type MyPost } from "@/lib/table-columns";
 
 export default function MyPostsPage() {
   const { user } = useAuth();
@@ -104,15 +66,41 @@ export default function MyPostsPage() {
 
   const handleDelete = async (post: MyPost) => {
     if (!confirm("Delete this post?")) return;
+    
     const table = post.type === "service" ? "services" : "jobs";
-    await supabase.from(table).delete().eq("id", post.id);
-    setPosts((prev) => prev.filter((p) => p.id !== post.id));
+    const { error } = await supabase.from(table).delete().eq("id", post.id);
+    
+    if (error) {
+      toast.error("Failed to delete post. Please try again.");
+    } else {
+      toast.success("Post deleted successfully!");
+      setPosts((prev) => prev.filter((p) => p.id !== post.id));
+    }
   };
 
   const filtered = filter === "all" ? posts : posts.filter((p) => p.type === filter);
 
   const serviceCount = posts.filter((p) => p.type === "service").length;
   const jobCount = posts.filter((p) => p.type === "job").length;
+
+  // Add handleDelete to columns
+  const columnsWithActions = myPostColumns.map((col) => {
+    if (col.id === "actions") {
+      return {
+        ...col,
+        cell: ({ row }: { row: { original: MyPost } }) => (
+          <button
+            onClick={() => handleDelete(row.original)}
+            className="p-1.5 manga-outline-sm text-foreground/30 hover:text-red-500 hover:border-red-300 transition-all cursor-pointer"
+            title="Delete"
+          >
+            🗑️
+          </button>
+        ),
+      };
+    }
+    return col;
+  });
 
   return (
     <div className="min-h-screen bg-muted">
@@ -143,7 +131,7 @@ export default function MyPostsPage() {
           ))}
         </div>
 
-        {/* Posts list */}
+        {/* Posts table */}
         {loading ? (
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
@@ -153,71 +141,21 @@ export default function MyPostsPage() {
               </div>
             ))}
           </div>
-        ) : filtered.length === 0 ? (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="manga-panel bg-white text-center py-16">
-            <p className="text-4xl mb-4">📭</p>
-            <p className="font-manga text-lg text-foreground/60 mb-2">
-              {filter === "all" ? t.myPosts.empty : filter === "service" ? t.myPosts.noServices : t.myPosts.noJobs}
-            </p>
-            <p className="text-sm text-foreground/40">{t.myPosts.emptyHint}</p>
-          </motion.div>
         ) : (
-          <div className="space-y-4">
-            <AnimatePresence>
-              {filtered.map((post, i) => (
-                <motion.div
-                  key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="manga-panel bg-white p-5 hover:shadow-[4px_4px_0_var(--color-primary)] transition-shadow"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-2 flex-wrap">
-                        <span className="text-xs font-manga text-foreground/40 uppercase">
-                          {post.type === "service" ? "🔧 " + t.tabs.services : "💼 " + t.tabs.jobs}
-                        </span>
-                        <span className={`text-[10px] font-bold px-2 py-0.5 border ${categoryColors[post.category] || "bg-foreground/5 text-foreground/50"}`}>
-                          {post.category}
-                        </span>
-                        <span className={`text-[10px] font-bold px-2 py-0.5 border ${statusColors[post.status] || ""}`}>
-                          {statusLabels[locale]?.[post.status] || post.status}
-                        </span>
-                      </div>
-                      <h3 className="font-bold text-foreground mb-1 truncate">{post.title}</h3>
-                      <p className="text-sm text-foreground/50 line-clamp-2 mb-2">{post.description}</p>
-                      <div className="flex items-center gap-4 text-xs text-foreground/40">
-                        <span className="font-manga text-primary font-bold">{post.currency}{post.price.toLocaleString()}</span>
-                        {post.tags.length > 0 && (
-                          <span className="flex gap-1">
-                            {post.tags.map((tag) => (
-                              <span key={tag} className="bg-muted px-1.5 py-0.5 text-foreground/50">{tag}</span>
-                            ))}
-                          </span>
-                        )}
-                        {post.url && (
-                          <a href={post.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:underline">
-                            <ExternalLinkIcon size={12} /> View
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <button
-                        onClick={() => handleDelete(post)}
-                        className="manga-outline-sm p-2 text-foreground/30 hover:text-red-500 hover:border-red-300 transition-all cursor-pointer"
-                        title="Delete"
-                      >
-                        <TrashIcon size={14} />
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+          >
+            <DataTable
+              columns={columnsWithActions}
+              data={filtered}
+              searchKey="title"
+              searchPlaceholder="Search posts..."
+              pageSize={10}
+            />
+          </motion.div>
         )}
       </div>
     </div>

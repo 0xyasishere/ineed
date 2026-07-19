@@ -13,6 +13,8 @@ export {
   PlusIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
   EyeIcon,
   EyeOffIcon,
   CameraIcon,

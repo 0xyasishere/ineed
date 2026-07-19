@@ -153,6 +153,24 @@ export function ChevronRightIcon({ size = 24, ...props }: IconProps) {
   );
 }
 
+/* ─── CHEVRON UP ─── */
+export function ChevronUpIcon({ size = 24, ...props }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" {...defaults} {...props}>
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
+  );
+}
+
+/* ─── CHEVRON DOWN ─── */
+export function ChevronDownIcon({ size = 24, ...props }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" {...defaults} {...props}>
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+
 /* ─── EYE (show password) ─── */
 export function EyeIcon({ size = 24, ...props }: IconProps) {
   return (

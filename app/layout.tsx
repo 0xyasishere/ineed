@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { I18nProvider } from "@/lib/i18n";
 import { AuthProvider } from "@/lib/auth";
+import { ToastProvider } from "@/components/ui/ToastProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,7 +20,10 @@ export default function RootLayout({
     <html lang="id" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
         <I18nProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            {children}
+            <ToastProvider />
+          </AuthProvider>
         </I18nProvider>
       </body>
     </html>

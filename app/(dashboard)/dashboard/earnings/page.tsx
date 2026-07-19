@@ -3,8 +3,10 @@
 import { useI18n } from "@/lib/i18n";
 import { WalletIcon, ArrowUpRightIcon, ArrowDownRightIcon } from "@/components/icons";
 import { motion } from "framer-motion";
+import { DataTable } from "@/components/ui/DataTable";
+import { transactionColumns, type Transaction } from "@/lib/table-columns";
 
-const transactions = [
+const transactions: Transaction[] = [
   { id: "1", description: "Payment from TechCorp Inc.", amount: "+$500", type: "income", date: "16 Jul 2026" },
   { id: "2", description: "Withdrawal to Bank ****1234", amount: "-$200", type: "withdrawal", date: "15 Jul 2026" },
   { id: "3", description: "Payment from Finova Labs", amount: "+$1,200", type: "income", date: "14 Jul 2026" },
@@ -72,22 +74,14 @@ export default function EarningsPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="manga-panel bg-white overflow-hidden"
       >
-        <div className="px-5 py-4 border-b border-border">
-          <h3 className="text-sm font-extrabold text-foreground">📊 Recent Transactions</h3>
-        </div>
-        {transactions.map((tx) => (
-          <div key={tx.id} className="flex items-center justify-between px-5 py-4 border-b border-border last:border-0 hover:bg-muted/50 transition-colors">
-            <div>
-              <p className="text-sm font-bold text-foreground">{tx.description}</p>
-              <p className="mt-0.5 text-[11px] text-foreground/40">{tx.date}</p>
-            </div>
-            <span className={`text-sm font-extrabold ${tx.type === "income" ? "text-emerald-600" : "text-foreground/60"}`}>
-              {tx.amount}
-            </span>
-          </div>
-        ))}
+        <DataTable
+          columns={transactionColumns}
+          data={transactions}
+          searchKey="description"
+          searchPlaceholder="Search transactions..."
+          pageSize={5}
+        />
       </motion.div>
     </div>
   );
