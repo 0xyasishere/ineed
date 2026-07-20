@@ -9,14 +9,28 @@ jobs:
       - name: Install psql
         run: sudo apt-get update && sudo apt-get install -y postgresql-client
 
-      - name: Test connection & run schema
-        env:
-          PGPASSWORD: Apx600ii@#$
+      - name: Apply schema
         run: |
-          echo "=== Trying direct connection (IPv6) ==="
-          psql "postgresql://postgres:${PGPASSWORD}@db.qndgoocyprcrqmodmjcm.supabase.co:5432/postgres?sslmode=require&connect_timeout=10" -c "SELECT 1 as test;" && echo "DIRECT OK" && \
-          psql "postgresql://postgres:${PGPASSWORD}@db.qndgoocyprcrqmodmjcm.supabase.co:5432/postgres?sslmode=require&connect_timeout=10" -f supabase/schema.sql && echo "SCHEMA APPLIED" || \
-          echo "Direct failed, trying pooler..." && \
-          psql "postgresql://postgres.qndgoocyprcrqmodmjcm:${PGPASSWORD}@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&connect_timeout=10" -c "SELECT 1 as test;" && echo "POOLER OK" && \
-          psql "postgresql://postgres.qndgoocyprcrqmodmjcm:${PGPASSWORD}@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&connect_timeout=10" -f supabase/schema.sql && echo "SCHEMA APPLIED" || \
-          echo "ALL CONNECTIONS FAILED"
+          # Use single quotes to prevent bash interpretation of the password
+          export PGPASSWORD='Apx600ii@#$'
+          
+          echo "=== Testing connections ==="
+          
+          # Try direct IPv6 connection
+          echo "1. Direct (IPv6)..."
+          psql 'postgresql://postgres@db.qndgoocyprcrqmodmjcm.supabase.co:5432/postgres?sslmode=require&connect_timeout=10' -c "SELECT 1 as test;" 2>&1 && { echo "DIRECT OK - applying schema..."; psql 'postgresql://postgres@db.qndgoocyprcrqmodmjcm.supabase.co:5432/postgres?sslmode=require&connect_timeout=10' -f supabase/schema.sql 2>&1; echo "DONE"; exit 0; } || echo "Direct failed"
+          
+          echo "---"
+          
+          # Try pooler transaction mode
+          echo "2. Pooler (tx, 6543)..."
+          psql 'postgresql://postgres.qndgoocyprcrqmodmjcm@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&connect_timeout=10' -c "SELECT 1 as test;" 2>&1 && { echo "POOLER TX OK - applying schema..."; psql 'postgresql://postgres.qndgoocyprcrqmodmjcm@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&connect_timeout=10' -f supabase/schema.sql 2>&1; echo "DONE"; exit 0; } || echo "Pooler TX failed"
+          
+          echo "---"
+          
+          # Try pooler session mode
+          echo "3. Pooler (session, 5432)..."
+          psql 'postgresql://postgres.qndgoocyprcrqmodmjcm@aws-0-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require&connect_timeout=10' -c "SELECT 1 as test;" 2>&1 && { echo "POOLER SESSION OK - applying schema..."; psql 'postgresql://postgres.qndgoocyprcrqmodmjcm@aws-0-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require&connect_timeout=10' -f supabase/schema.sql 2>&1; echo "DONE"; exit 0; } || echo "Pooler session failed"
+          
+          echo "=== ALL CONNECTIONS FAILED ==="
+          exit 1
