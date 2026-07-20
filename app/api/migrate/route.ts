@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { Client } from 'pg';
 
 const SECRET = 'ineed-migrate-2026';
-const DB_HOST = 'db.qndgoocyprcrqmodmjcm.supabase.co';
+const DB_HOST = '2406:da12:1f1:f802:be00:9b4b:244f:8a45';
 const DB_USER = 'postgres';
 const DB_PASS = 'Apx600ii@#$';
 const DB_NAME = 'postgres';
