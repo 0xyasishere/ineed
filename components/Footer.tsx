@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
+import Link from "next/link";
 
 export function Footer() {
   const { t, locale } = useI18n();
@@ -29,11 +30,21 @@ export function Footer() {
             </h4>
             <ul className="mt-3 space-y-2">
               {(locale === "id"
-                ? ["Jelajahi Layanan", "Cari Talenta", "Posting Pekerjaan", "Cara Kerja"]
-                : ["Browse Services", "Find Talent", "Post a Job", "How It Works"]
+                ? [
+                    { label: "Jelajahi Layanan", href: "/#services" },
+                    { label: "Cari Talenta", href: "/#services" },
+                    { label: "Posting Pekerjaan", href: "/auth/register" },
+                    { label: "Cara Kerja", href: "/#services" },
+                  ]
+                : [
+                    { label: "Browse Services", href: "/#services" },
+                    { label: "Find Talent", href: "/#services" },
+                    { label: "Post a Job", href: "/auth/register" },
+                    { label: "How It Works", href: "/#services" },
+                  ]
               ).map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-xs text-foreground/55 hover:text-primary font-medium transition-colors">{link}</a>
+                <li key={link.label}>
+                  <Link href={link.href} className="text-xs text-foreground/55 hover:text-primary font-medium transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -45,11 +56,21 @@ export function Footer() {
             </h4>
             <ul className="mt-3 space-y-2">
               {(locale === "id"
-                ? ["Tentang Kami", "Blog", "Karir", "Pers"]
-                : ["About Us", "Blog", "Careers", "Press"]
+                ? [
+                    { label: "Tentang Kami", href: "/#services" },
+                    { label: "Blog", href: "/#services" },
+                    { label: "Karir", href: "/#services" },
+                    { label: "Pers", href: "/#services" },
+                  ]
+                : [
+                    { label: "About Us", href: "/#services" },
+                    { label: "Blog", href: "/#services" },
+                    { label: "Careers", href: "/#services" },
+                    { label: "Press", href: "/#services" },
+                  ]
               ).map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-xs text-foreground/55 hover:text-primary font-medium transition-colors">{link}</a>
+                <li key={link.label}>
+                  <Link href={link.href} className="text-xs text-foreground/55 hover:text-primary font-medium transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -61,11 +82,21 @@ export function Footer() {
             </h4>
             <ul className="mt-3 space-y-2">
               {(locale === "id"
-                ? ["Pusat Bantuan", "Keamanan", t.footer.terms, t.footer.privacy]
-                : ["Help Center", "Safety", t.footer.terms, t.footer.privacy]
+                ? [
+                    { label: "Pusat Bantuan", href: "/#services" },
+                    { label: "Keamanan", href: "/#services" },
+                    { label: t.footer.terms, href: "/#services" },
+                    { label: t.footer.privacy, href: "/#services" },
+                  ]
+                : [
+                    { label: "Help Center", href: "/#services" },
+                    { label: "Safety", href: "/#services" },
+                    { label: t.footer.terms, href: "/#services" },
+                    { label: t.footer.privacy, href: "/#services" },
+                  ]
               ).map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-xs text-foreground/55 hover:text-primary font-medium transition-colors">{link}</a>
+                <li key={link.label}>
+                  <Link href={link.href} className="text-xs text-foreground/55 hover:text-primary font-medium transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>

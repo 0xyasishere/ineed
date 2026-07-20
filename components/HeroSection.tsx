@@ -4,11 +4,26 @@ import { motion } from "framer-motion";
 import { useI18n } from "@/lib/i18n";
 import { SpeedLines, FloatingEmoji, SFXText, Starburst, HalftoneOverlay } from "@/components/manga/Elements";
 import { SearchIcon, ZapIcon } from "@/components/icons";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const popularSearches = ["Web Design", "React Dev", "UI/UX", "Copywriting"];
 
 export function HeroSection() {
   const { t } = useI18n();
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      router.push(`/#services?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const handleTagClick = (tag: string) => {
+    setSearchQuery(tag);
+    router.push(`/#services?q=${encodeURIComponent(tag)}`);
+  };
 
   return (
     <section className="relative overflow-hidden bg-background speed-lines">
@@ -99,12 +114,16 @@ export function HeroSection() {
             <SearchIcon size={20} className="shrink-0 text-foreground/55" />
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               placeholder={t.hero.searchPlaceholder}
               className="flex-1 bg-transparent py-3.5 text-sm font-medium text-foreground placeholder-foreground/40 outline-none"
             />
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={handleSearch}
               className="shrink-0 manga-outline-sm bg-primary px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:bg-primary/90 cursor-pointer flex items-center gap-1.5"
             >
               <ZapIcon size={14} />
@@ -115,14 +134,14 @@ export function HeroSection() {
           <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-foreground/55 font-bold">
             <span>{t.hero.popular}</span>
             {popularSearches.map((tag) => (
-              <motion.a
+              <motion.button
                 key={tag}
-                href="#"
+                onClick={() => handleTagClick(tag)}
                 whileHover={{ scale: 1.05, y: -1 }}
                 className="manga-outline-sm bg-muted px-3.5 py-1.5 text-foreground/65 transition-all duration-200 hover:bg-primary/10 hover:text-primary cursor-pointer text-xs"
               >
                 {tag}
-              </motion.a>
+              </motion.button>
             ))}
           </div>
         </motion.div>

@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# iNeed - Freelance Marketplace
+
+Marketplace freelance berbasis manga/comic book design, dibangun dengan Next.js 16, Tailwind CSS 4, dan Supabase.
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS 4 + custom manga design system
+- **Database:** Supabase (PostgreSQL + RLS)
+- **Auth:** Supabase Auth (Email/Password + OAuth)
+- **Animation:** Framer Motion
+- **Charts:** Recharts
+- **Language:** TypeScript
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install --legacy-peer-deps
+
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your Supabase keys
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SECRET_KEY=your_supabase_service_role_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Database Setup
 
-## Learn More
+Run the SQL in `supabase/schema.sql` in your Supabase SQL Editor to create all tables and RLS policies.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/
+├── (landing)/          # Public pages (home, auth)
+│   ├── auth/login/
+│   ├── auth/register/
+│   ├── services/[id]/
+│   └── jobs/[id]/
+├── (dashboard)/        # Protected dashboard pages
+│   ├── dashboard/
+│   │   ├── page.tsx    # Overview
+│   │   ├── post/       # Post service/job
+│   │   ├── my-posts/   # Manage listings
+│   │   ├── proposals/  # View proposals
+│   │   ├── messages/   # Conversations
+│   │   ├── earnings/   # Charts + transactions
+│   │   ├── campaigns/  # Marketing campaigns
+│   │   ├── profile/    # Edit profile
+│   │   └── settings/   # Account settings
+│   └── auth/callback/
+├── layout.tsx          # Root layout
+└── not-found.tsx       # 404 page
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+components/
+├── dashboard/          # Sidebar, TopNavbar
+├── ui/                 # DataTable, FormField, Skeleton, etc.
+├── manga/              # Manga-style elements
+└── Cards.tsx           # Service & Job cards
 
-## Deploy on Vercel
+lib/
+├── auth.tsx            # AuthProvider + useAuth
+├── i18n.tsx            # Indonesian/English i18n
+├── supabase/           # Client & server Supabase helpers
+├── validations.ts      # Zod schemas
+└── table-columns.tsx   # DataTable column definitions
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Manga/comic book design system
+- Indonesian & English language support
+- Responsive mobile sidebar navigation
+- Real-time data from Supabase
+- Earnings charts (Area + Bar)
+- Service & job detail pages
+- Profile with social links
+- Settings with notification toggles
+
+## License
+
+MIT

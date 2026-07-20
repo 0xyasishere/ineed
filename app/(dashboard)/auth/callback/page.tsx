@@ -9,12 +9,30 @@ export default function AuthCallbackPage() {
 
   useEffect(() => {
     const supabase = createClient();
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        window.location.href = "/dashboard";
+
+    const handleAuth = async () => {
+      const { error } = await supabase.auth.exchangeCodeForSession(
+        window.location.search
+      );
+
+      if (!error) {
+        router.replace("/dashboard");
+      } else {
+        router.replace("/auth/login?error=auth_failed");
       }
-    });
-  }, []);
+    };
+
+    const hash = window.location.hash;
+    if (hash && hash.includes("access_token")) {
+      supabase.auth.onAuthStateChange((event, session) => {
+        if (session) {
+          router.replace("/dashboard");
+        }
+      });
+    } else {
+      handleAuth();
+    }
+  }, [router]);
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center">

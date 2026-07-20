@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth";
 import { useState } from "react";
 import {
   LayoutDashboardIcon,
@@ -23,7 +24,9 @@ import {
 
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { t } = useI18n();
+  const { signOut } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const links = [
@@ -37,6 +40,11 @@ export function Sidebar() {
     { label: t.dashboard.profile, href: "/dashboard/profile", icon: UserIcon },
     { label: t.dashboard.settings, href: "/dashboard/settings", icon: SettingsIcon },
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push("/");
+  };
 
   const SidebarContent = () => (
     <>
@@ -89,7 +97,10 @@ export function Sidebar() {
           <ChevronLeftIcon size={18} />
           {t.dashboard.backToHome}
         </Link>
-        <button className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-destructive transition-all duration-200 hover:bg-destructive/10 cursor-pointer w-full border-2 border-transparent hover:border-destructive/20">
+        <button
+          onClick={handleSignOut}
+          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-destructive transition-all duration-200 hover:bg-destructive/10 cursor-pointer w-full border-2 border-transparent hover:border-destructive/20"
+        >
           <LogOutIcon size={18} />
           {t.dashboard.signOut}
         </button>
@@ -99,7 +110,6 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile hamburger */}
       <button
         onClick={() => setMobileOpen(true)}
         className="lg:hidden fixed top-4 left-4 z-50 manga-outline-sm bg-white p-2 cursor-pointer"
@@ -107,12 +117,10 @@ export function Sidebar() {
         <MenuIcon size={20} />
       </button>
 
-      {/* Desktop sidebar */}
       <aside className="hidden lg:flex lg:w-64 lg:flex-col bg-white border-r-[3px] border-foreground">
         <SidebarContent />
       </aside>
 
-      {/* Mobile sidebar overlay */}
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
           <div

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import type { Service, Job } from "@/types/service";
 import { ExternalLinkIcon, StarIcon } from "@/components/icons";
 
@@ -18,6 +19,7 @@ const categoryIcons: Record<string, string> = {
 
 export function ServiceGridCard({ service }: { service: Service }) {
   return (
+    <Link href={`/services/${service.id}`}>
     <motion.div
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -74,6 +76,7 @@ export function ServiceGridCard({ service }: { service: Service }) {
         <span className="text-[10px] text-foreground/40">• {service.deliveryDays}d</span>
       </div>
     </motion.div>
+    </Link>
   );
 }
 

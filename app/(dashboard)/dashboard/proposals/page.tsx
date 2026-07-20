@@ -1,19 +1,43 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth";
+import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
 import { DataTable } from "@/components/ui/DataTable";
 import { proposalColumns, type Proposal } from "@/lib/table-columns";
-
-const proposals: Proposal[] = [
-  { id: "1", project: "React Developer for E-commerce", client: "TechCorp Inc.", budget: "$2,500", status: "pending", date: "2 jam lalu" },
-  { id: "2", project: "Mobile App UI/UX Redesign", client: "Finova Labs", budget: "$1,800", status: "accepted", date: "5 jam lalu" },
-  { id: "3", project: "Content Writer for SaaS Blog", client: "CloudStack", budget: "$800", status: "rejected", date: "1 hari lalu" },
-  { id: "4", project: "Python Data Pipeline Engineer", client: "DataVerse", budget: "$3,200", status: "pending", date: "3 jam lalu" },
-];
+import { useState, useEffect } from "react";
 
 export default function ProposalsPage() {
   const { t } = useI18n();
+  const { user } = useAuth();
+  const supabase = createClient();
+  const [proposals, setProposals] = useState<Proposal[]>([]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchProposals = async () => {
+      const { data } = await supabase
+        .from("proposals")
+        .select("*, jobs(title, budget)")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+
+      if (data) {
+        setProposals(data.map((p: Record<string, unknown>) => ({
+          id: p.id as string,
+          project: (p.jobs as Record<string, unknown>)?.title as string || "Unknown Job",
+          client: "You",
+          budget: `$${(p.jobs as Record<string, unknown>)?.budget || p.bid_amount}`,
+          status: (["pending", "accepted", "rejected"].includes(p.status as string) ? p.status : "pending") as "pending" | "accepted" | "rejected",
+          date: new Date(p.created_at as string).toLocaleDateString(),
+        })));
+      }
+    };
+
+    fetchProposals();
+  }, [user]);
 
   return (
     <div className="space-y-6">

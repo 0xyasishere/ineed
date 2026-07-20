@@ -21,6 +21,10 @@ function isAppSubdomain(hostname: string): boolean {
   return hostname === APP_DOMAIN || hostname === "app.localhost";
 }
 
+function isLocalhost(hostname: string): boolean {
+  return hostname === "localhost" || hostname.endsWith(".localhost");
+}
+
 function isPreviewDeployment(hostname: string): boolean {
   return (
     hostname.includes(".vercel.app") &&
@@ -33,7 +37,6 @@ export async function middleware(request: NextRequest) {
   const hostname = getHostname(request);
   const { pathname } = request.nextUrl;
 
-  // Preview deployments
   if (isPreviewDeployment(hostname)) {
     const access = request.nextUrl.searchParams.get("access");
     if (access === "app") {
@@ -42,32 +45,31 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // App subdomain
   if (isAppSubdomain(hostname)) {
-    // Root of app subdomain → redirect to /dashboard
     if (pathname === "/") {
       const url = request.nextUrl.clone();
       url.pathname = "/dashboard";
       return NextResponse.redirect(url);
     }
-
-    // Protect dashboard routes (not auth routes)
     if (pathname.startsWith("/dashboard")) {
       return updateSession(request);
     }
-
     return NextResponse.next();
   }
 
-  // Root domain
+  if (isLocalhost(hostname)) {
+    if (pathname.startsWith("/dashboard")) {
+      return updateSession(request);
+    }
+    return NextResponse.next();
+  }
+
   if (isRootDomain(hostname)) {
-    // Block dashboard routes on root domain
     if (pathname.startsWith("/dashboard")) {
       const url = request.nextUrl.clone();
       url.pathname = "/";
       return NextResponse.redirect(url);
     }
-
     return NextResponse.next();
   }
 

@@ -125,9 +125,23 @@ export default function LoginPage() {
               </button>
             </div>
             <div className="mt-2 text-right">
-              <Link href="/auth/forgot" className="text-xs font-semibold text-primary hover:underline cursor-pointer">
+              <button
+                type="button"
+                onClick={async () => {
+                  const email = (document.getElementById("email") as HTMLInputElement)?.value;
+                  if (email) {
+                    const { createClient } = await import("@/lib/supabase/client");
+                    const sb = createClient();
+                    await sb.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/auth/callback` });
+                    toast.success("Check your email for password reset link");
+                  } else {
+                    toast.error("Enter your email first");
+                  }
+                }}
+                className="text-xs font-semibold text-primary hover:underline cursor-pointer"
+              >
                 {t.auth.forgotPassword}
-              </Link>
+              </button>
             </div>
           </div>
           <motion.button

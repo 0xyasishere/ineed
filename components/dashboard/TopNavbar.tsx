@@ -1,10 +1,14 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth";
 import { SearchIcon, BellIcon } from "@/components/icons";
 
 export function TopNavbar() {
   const { t, locale, setLocale } = useI18n();
+  const { user } = useAuth();
+
+  const initials = user?.email?.slice(0, 2).toUpperCase() || "U";
 
   return (
     <header className="flex h-16 items-center gap-4 border-b-[3px] border-foreground bg-white px-6">
@@ -33,7 +37,7 @@ export function TopNavbar() {
         </button>
 
         <div className="flex h-9 w-9 items-center justify-center manga-outline-sm bg-primary/10 text-xs font-bold text-primary cursor-pointer">
-          JD
+          {initials}
         </div>
       </div>
     </header>
